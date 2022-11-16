@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+<img width="828" alt="image" src="https://user-images.githubusercontent.com/110574773/202296492-7ac24b69-51b1-42ba-8afb-aa68935b2bbd.png">
 
 ## API Documentation
 
@@ -1862,8 +1862,8 @@ Delete an attendance to an event specified by id.
 * Require proper authorization: Current User must be the host of the group, or
   the user whose attendance is being deleted
 * Request
-  * Method: /DELET
-  * URL: /user/groups/events/attendees/:attendeeId
+  * Method: /DELETE
+  * URL: /user/groups/events/:eventId/attendees/:attendeeId
   * Headers:
     * Content-Type: application/json
   * Body:
