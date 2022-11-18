@@ -10,7 +10,7 @@ const router = express.Router();
 const validateSignup = [
   check('firstName')
     .exists({ checkFalsy: true })
-    .isLength({ min: 3 })
+    .isLength({ min: 2 })
     .withMessage('Please provide a valid first name.'),
   check('lastName')
     .exists({ checkFalsy: true })
