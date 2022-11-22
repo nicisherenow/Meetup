@@ -1,32 +1,54 @@
 const express = require('express')
 
-const { requireAuth } = require('../../utils/auth');
-const { Group } = require('../../db/models');
+const { restoreUser, requireAuth } = require('../../utils/auth');
+const { Group, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-const validateSignup = [
-  check('firstName')
+const validateGroup = [
+  check('name')
     .exists({ checkFalsy: true })
-    .isLength({ min: 2 })
-    .withMessage('Please provide a valid first name.'),
-  check('lastName')
+    .isLength({ max: 60 })
+    .withMessage('Name must be 60 characters or less'),
+  check('about')
     .exists({ checkFalsy: true })
-    .isLength({ min: 2 })
-    .withMessage('Please provide a valid last name.'),
-  check('email')
+    .isLength({ min: 50 })
+    .withMessage('About must be 50 characters or more'),
+  check('type')
     .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage('Please provide a valid email.'),
-  check('password')
+    .withMessage('Type must be "Online" or "In person"'),
+  check('private')
+    .exists()
+    .withMessage('Private must be a boolean'),
+  check('city')
     .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
+    .withMessage('City is required'),
+  check('state')
+    .exists({ checkFalsy: true })
+    .withMessage("State is required"),
   handleValidationErrors
 ];
 
+router.post('/',
+  [restoreUser, requireAuth, validateGroup],
+  async (req, res) => {
+    let { user } = req
+    user = user.toJSON()
+    const { name, about, type, private, city, state } = req.body;
+    const group = await Group.create({
+      organizerId: user.id,
+      name,
+      about,
+      type,
+      private,
+      city,
+      state
+    })
+
+    return res.json(group)
+  })
 
 
 module.exports = router;

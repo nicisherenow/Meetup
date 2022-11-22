@@ -30,7 +30,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING(60),
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
