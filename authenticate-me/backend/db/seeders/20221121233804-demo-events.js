@@ -1,6 +1,5 @@
 'use strict';
 
-const group = require("../models/group");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

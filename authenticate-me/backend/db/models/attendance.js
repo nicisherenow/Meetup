@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         { foreignKey: 'userId' }
       )
       Attendance.hasMany(
-        models.Event,
-        { foreignKey: 'eventId' }
+        models.Group,
+        { foreignKey: 'groupId' }
       )
     }
   }

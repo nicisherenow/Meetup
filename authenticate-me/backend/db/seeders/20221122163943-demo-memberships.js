@@ -10,20 +10,21 @@ module.exports = {
     options.tableName = 'Memberships';
     return queryInterface.bulkInsert(options, [
       {
+        userId: 1,
         groupId: 1,
-        url: 'samplepic.png',
-        preview: true,
+        status: 'pending'
       },
       {
+        userId: 2,
         groupId: 2,
-        url: 'samplepic1.png',
-        preview: false,
+        status: 'member'
       },
       {
+        userId: 3,
         groupId: 3,
-        url: 'samplepic2.png',
-        preview: false,
+        status: 'co-host'
       },
+
     ], {});
   },
 
