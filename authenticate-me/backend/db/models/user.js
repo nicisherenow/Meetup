@@ -40,13 +40,17 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
     static associate(models) {
-      User.belongsTo(
-        models.Attendance,
-        { foreignKey: 'userId' }
-      )
       User.belongsToMany(
         models.Event,
         { through: models.Attendance }
+      )
+      User.belongsToMany(
+        models.Group,
+        { through: models.Membership }
+      )
+      User.hasMany(
+        models.Group,
+        { foreignKey: 'organizerId' }
       )
     }
   };

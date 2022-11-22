@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const attendance = require('./attendance');
 const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
@@ -11,13 +12,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Event.belongsTo(
-        models.Attendance,
+      Event.hasMany(
+        models.EventImage,
         { foreignKey: 'eventId' }
       )
       Event.belongsToMany(
         models.User,
         { through: models.Attendance }
+      )
+      Event.belongsTo(
+        models.Venue,
+        { foreignKey: 'venueId' }
+      )
+      Event.belongsTo(
+        models.Group,
+        { foreignKey: 'groupId' }
       )
     }
   }
