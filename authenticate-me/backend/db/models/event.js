@@ -14,17 +14,32 @@ module.exports = (sequelize, DataTypes) => {
       Event.belongsToMany(
         models.User,
         {
-          foreignKey: 'eventId',
           through: models.Attendance,
-          otherKey: 'userId'
         }
+      )
+      Event.hasMany(
+        models.EventImage,
+        {
+          foreignKey: 'eventId'
+        }
+      )
+      Event.belongsTo(
+        models.Venue,
+        { foreignKey: 'venueId' }
+      )
+      Event.belongsTo(
+        models.Group,
+        { foreignKey: 'groupId' }
+      )
+      Event.belongsTo(
+        models.Attendance,
+        { foreignKey: 'eventId'}
       )
     }
   }
   Event.init({
     venueId: {
       type: DataTypes.INTEGER,
-      allowNull: false
     },
     groupId: {
       type: DataTypes.INTEGER,
@@ -59,9 +74,6 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      validate: {
-        isAfter: DataTypes.literal('CURRENT_DATE')
-      }
     },
     endDate: {
       type: DataTypes.DATE,

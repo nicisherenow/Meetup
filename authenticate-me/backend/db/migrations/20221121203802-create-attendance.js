@@ -1,5 +1,9 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+options.tableName ='Attendances'
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Attendances', {
@@ -13,9 +17,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Events'
+          model: 'Events',
+          key: 'id'
         },
-        onDelete: 'CASCADE'
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -23,7 +27,6 @@ module.exports = {
         references: {
           model: 'Users'
         },
-        onDelete: 'CASCADE'
       },
       status: {
         type: Sequelize.ENUM('member', 'waitlist', 'pending'),
@@ -42,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Attendances');
+    await queryInterface.dropTable(options);
   }
 };
