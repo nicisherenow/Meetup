@@ -1,34 +1,32 @@
-"use strict";
-
+'use strict';
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName ='Users'
+options.tableName ='EventImages'
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('EventImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING(30),
-        allowNull: false
-      },
-      lastName: {
-        type: Sequelize.STRING(30),
-        allowNull: false
-      },
-      email: {
-        type: Sequelize.STRING(256),
+      eventId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true
+        // references: {
+        //   model: 'Events',
+        //   key: 'id'
+        // },
       },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      url: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      preview: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {
@@ -41,9 +39,9 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    }, options);
+    });
   },
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable(options);
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable(options);
   }
 };

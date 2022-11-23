@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, firstName, lastName, email, username } = this; // context will be the User instance
-      return { id, firstName, lastName, email, username };
+      const { id, firstName, lastName, email } = this; // context will be the User instance
+      return { id, firstName, lastName, email };
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            username: credential,
             email: credential
           }
         }
@@ -34,13 +33,23 @@ module.exports = (sequelize, DataTypes) => {
         firstName,
         lastName,
         email,
-        username,
         hashedPassword
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
     static associate(models) {
-      // define association here
+      User.belongsToMany(
+        models.Event,
+        { through: models.Attendance }
+      )
+      User.belongsToMany(
+        models.Group,
+        { through: models.Membership }
+      )
+      User.hasMany(
+        models.Group,
+        { foreignKey: 'organizerId' }
+      )
     }
   };
 
@@ -58,18 +67,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: [2, 30]
-        }
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [4, 30],
-          isNotEmail(value) {
-            if (Validator.isEmail(value)) {
-              throw new Error("Cannot be an email.");
-            }
-          }
         }
       },
       email: {
