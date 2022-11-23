@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User, GroupImage, Membership } = require('../../db/models');
+const { Group, User, GroupImage, Membership, Venue } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -29,11 +29,36 @@ const validateGroup = [
   handleValidationErrors
 ];
 
+const validateVenue = [
+  check('address')
+    .exists({ checkFalsy: true })
+    .withMessage('Street address is required'),
+  check('city')
+    .exists({ checkFalsy: true })
+    .withMessage('City is required'),
+  check('state')
+    .exists({ checkFalsy: true })
+    .withMessage('State is required'),
+  check('lat')
+    .exists()
+    .withMessage('Latitude is not valid'),
+  check('lng')
+    .exists({ checkFalsy: true })
+    .withMessage('Longitude is not valid'),
+  handleValidationErrors
+]
+
 router.get('/', async (req, res) => {
   const groups = await Group.findAll()
 
   res.json(groups)
 })
+
+router.get('/:groupId/venues',
+  [restoreUser, requireAuth],
+  async (req, res) => {
+    
+  })
 
 router.get('/current',
   [restoreUser, requireAuth],
@@ -100,13 +125,55 @@ router.post('/:groupId/images',
     }
   })
 
-// router.post('/:groupId/venues',
-//   [restoreUser, requireAuth],
-//   async (req, res) => {
-//     let { user } = req
-//     user = user.toJSON()
+router.post('/:groupId/venues',
+  [restoreUser, requireAuth, validateVenue],
+  async (req, res) => {
+    let { user } = req
+    user = user.toJSON()
+    const { address, city, state, lat, lng } = req.body
+  const members = await Membership.findAll({
+    where: {
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
 
-//   })
+  const group = await Group.findByPk(req.params.groupId)
+  if(!group) {
+    res.status(404)
+    res.json({
+      message: "Group couldn't be found",
+      statusCode: 404
+    })
+  }
+  console.log(members)
+  const isGroup = group.toJSON()
+  if (isGroup.organizerId === user.id || members.length) {
+    const venue = await Venue.create({
+      groupId: req.params.groupId,
+      address: address,
+      city: city,
+      state: state,
+      lat: lat,
+      lng: lng
+    })
+    res.json({
+      id: venue.id,
+      groupId: venue.groupId,
+      address,
+      city,
+      state,
+      lat,
+      lng
+    })
+  } else {
+    res.status(403)
+    res.json({
+      message: "Forbidden",
+      statusCode: 403
+    })
+  }
+  })
 
 router.post('/',
   [restoreUser, requireAuth, validateGroup],
@@ -124,7 +191,6 @@ router.post('/',
       city,
       state
     })
-
     return res.json(group)
   })
 
@@ -163,6 +229,8 @@ router.post('/',
         })
       }
     })
+
+  router.delete('/:groupId/image')
 
   router.delete('/:groupId',
     [requireAuth, restoreUser],
