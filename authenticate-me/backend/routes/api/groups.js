@@ -77,6 +77,40 @@ router.post('/',
     return res.json(group)
   })
 
+  router.put('/:groupId',
+    [requireAuth, restoreUser, validateGroup],
+    async (req, res) => {
+      let { user } = req
+      user = user.toJSON()
+      const { name, about, type, private, city, state } = req.body
+      const group = await Group.findByPk(req.params.groupId)
+
+      if(!group) {
+        res.json({
+          message: "Group couldn't be found",
+          statusCode: 404
+        })
+      }
+      const isGroup = group.toJSON()
+      if(isGroup.organizerId === user.id) {
+        if(name) group.name = name;
+        if(about) group.about = about;
+        if(type) group.type = type;
+        if(private) group.private = private;
+        if(city) group.city = city;
+        if(state) group.state = state;
+
+        await group.save()
+
+        res.json(group)
+      } else {
+        res.json({
+          message: 'Authentication required',
+          statusCode: 401
+        })
+      }
+    })
+
   router.delete('/:groupId',
     [requireAuth, restoreUser],
     async (req, res) => {
