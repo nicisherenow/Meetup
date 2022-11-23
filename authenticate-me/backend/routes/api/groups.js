@@ -77,5 +77,37 @@ router.post('/',
     return res.json(group)
   })
 
+  router.delete('/:groupId',
+    [requireAuth, restoreUser],
+    async (req, res) => {
+      let { user } = req;
+      user = user.toJSON()
+
+    if (user) {
+      const deleteGroup = await Group.findByPk(req.params.groupId)
+      if(!deleteGroup) res.json({
+        message: "Group couldn't be found",
+        statusCode: 404
+      })
+      const isGroup = deleteGroup.toJSON()
+
+      if(user.id === isGroup.organizerId) {
+
+
+        await deleteGroup.destroy()
+
+        res.json({
+          message: 'Successfully deleted',
+          statusCode: 200
+        })
+      } else {
+        res.json({
+          message: 'Authentication required',
+          statusCode: 401
+        })
+      }
+    }
+    })
+
 
 module.exports = router;
