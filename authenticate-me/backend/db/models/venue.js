@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Event,
         { foreignKey: 'venueId' }
       )
+      Venue.belongsTo(
+        models.Group,
+        { foreignKey: 'groupId' }
+      )
     }
   }
   Venue.init({
