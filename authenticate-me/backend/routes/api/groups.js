@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User } = require('../../db/models');
+const { Group, User, GroupImage, Membership } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -30,6 +30,33 @@ const validateGroup = [
     .withMessage("State is required"),
   handleValidationErrors
 ];
+
+router.get('/', async (req, res) => {
+  const groups = await Group.findAll()
+
+  res.json(groups)
+})
+
+router.get('/current',
+  [restoreUser, requireAuth],
+  async (req, res) => {
+    let { user } = req;
+    user = user.toJSON()
+  if (user) {
+    const groups = await Group.findAll({
+      where: {
+        organizerId: user.id
+      },
+      include: {
+        model: GroupImage
+      }
+    })
+
+    res.json({
+      Groups: groups
+    })
+    }
+  })
 
 router.post('/',
   [restoreUser, requireAuth, validateGroup],
