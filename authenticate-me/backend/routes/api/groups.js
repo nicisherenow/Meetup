@@ -56,6 +56,58 @@ router.get('/current',
     }
   })
 
+router.post('/:groupId/images',
+  [restoreUser, requireAuth,],
+  async (req, res) => {
+    let { user } = req;
+    user = user.toJSON()
+    const { url, preview } = req.body;
+
+    if(!user) {
+      res.status(404)
+      res.json({
+        message: "Group couldn't be found",
+        statusCode: 404
+      })
+    }
+    const group = await Group.findByPk(req.params.groupId)
+    if(!group) {
+      res.status(404)
+      res.json({
+        message: "Group couldn't be found",
+        statusCode: 404
+      })
+    }
+    const isGroup = group.toJSON()
+    if(isGroup.organizerId === user.id) {
+      const image = await GroupImage.create({
+        url: url,
+        groupId: isGroup.id,
+        preview: preview
+      })
+
+      res.json({
+        id: image.id,
+        url: image.url,
+        preview: image.preview
+      })
+    } else {
+      res.status(403)
+      res.json({
+          message: "Forbidden",
+          statusCode: 403
+      })
+    }
+  })
+
+// router.post('/:groupId/venues',
+//   [restoreUser, requireAuth],
+//   async (req, res) => {
+//     let { user } = req
+//     user = user.toJSON()
+
+//   })
+
 router.post('/',
   [restoreUser, requireAuth, validateGroup],
   async (req, res) => {
@@ -85,6 +137,7 @@ router.post('/',
       const group = await Group.findByPk(req.params.groupId)
 
       if(!group) {
+        res.status(404)
         res.json({
           message: "Group couldn't be found",
           statusCode: 404
@@ -103,9 +156,10 @@ router.post('/',
 
         res.json(group)
       } else {
+        res.status(403)
         res.json({
-          message: 'Authentication required',
-          statusCode: 401
+          message: 'Forbidden',
+          statusCode: 403
         })
       }
     })
@@ -118,10 +172,13 @@ router.post('/',
 
     if (user) {
       const deleteGroup = await Group.findByPk(req.params.groupId)
-      if(!deleteGroup) res.json({
+      if(!deleteGroup) {
+        res.status(404)
+        res.json({
         message: "Group couldn't be found",
         statusCode: 404
       })
+    }
       const isGroup = deleteGroup.toJSON()
 
       if(user.id === isGroup.organizerId) {
@@ -134,6 +191,7 @@ router.post('/',
           statusCode: 200
         })
       } else {
+        res.status(401)
         res.json({
           message: 'Authentication required',
           statusCode: 401

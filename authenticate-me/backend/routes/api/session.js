@@ -9,12 +9,11 @@ const router = express.Router();
 
 const validateLogin = [
   check('credential')
-    .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Email is required'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
 
@@ -28,7 +27,7 @@ router.post(
 
     if (!user) {
       const err = new Error('Login failed');
-      err.status = 401;
+      err.statusCode = 401;
       err.title = 'Login failed';
       err.errors = ['Invalid credentials'];
       return next(err);
