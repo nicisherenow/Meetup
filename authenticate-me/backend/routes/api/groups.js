@@ -57,7 +57,48 @@ router.get('/', async (req, res) => {
 router.get('/:groupId/venues',
   [restoreUser, requireAuth],
   async (req, res) => {
-    
+    let { user } = req
+    user = user.toJSON()
+  if(!user) {
+    res.status(403)
+    res.json({
+      message: 'Forbidden',
+      statusCode: 403
+    })
+  }
+
+  const group = await Group.findByPk(req.params.groupId)
+  if(!group) {
+    res.status(404)
+    res.json({
+      message: "Group couldn't be found",
+      statusCode: 404
+    })
+  }
+  const isGroup = group.toJSON()
+  const member = await Membership.findOne({
+    where: {
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
+
+  if (isGroup.organizerId === user.id || member) {
+    const venues = await Venue.scope('defaultScope').findAll({
+      where: {
+        groupId: req.params.groupId
+      },
+
+    })
+    res.json(venues)
+  } else {
+    res.status(403)
+    res.json({
+      message: 'Forbidden',
+      statusCode: 403
+    })
+  }
+
   })
 
 router.get('/current',
@@ -89,10 +130,10 @@ router.post('/:groupId/images',
     const { url, preview } = req.body;
 
     if(!user) {
-      res.status(404)
+      res.status(403)
       res.json({
-        message: "Group couldn't be found",
-        statusCode: 404
+        message: "Forbidden",
+        statusCode: 403
       })
     }
     const group = await Group.findByPk(req.params.groupId)
@@ -131,7 +172,7 @@ router.post('/:groupId/venues',
     let { user } = req
     user = user.toJSON()
     const { address, city, state, lat, lng } = req.body
-  const members = await Membership.findAll({
+  const member = await Membership.findOne({
     where: {
       userId: user.id,
       status: 'co-host'
@@ -146,9 +187,8 @@ router.post('/:groupId/venues',
       statusCode: 404
     })
   }
-  console.log(members)
   const isGroup = group.toJSON()
-  if (isGroup.organizerId === user.id || members.length) {
+  if (isGroup.organizerId === user.id || member) {
     const venue = await Venue.create({
       groupId: req.params.groupId,
       address: address,
