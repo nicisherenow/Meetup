@@ -61,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     price: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.FLOAT(7, 2),
+      allowNull: false,
     },
     startDate: {
       type: DataTypes.DATE,
@@ -71,14 +71,6 @@ module.exports = (sequelize, DataTypes) => {
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      validate: {
-        isAfter: this.startDate,
-        ifIsBefore(value) {
-          if(parseInt(value) < parseInt(this.startDate)) {
-            throw new Error('End date is less than start date')
-          }
-        }
-      }
     }
   }, {
     sequelize,

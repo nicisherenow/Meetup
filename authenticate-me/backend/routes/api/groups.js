@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User, GroupImage, Membership, Venue } = require('../../db/models');
+const { Group, User, GroupImage, Membership, Venue, Event } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -45,6 +45,34 @@ const validateVenue = [
   check('lng')
     .exists({ checkFalsy: true })
     .withMessage('Longitude is not valid'),
+  handleValidationErrors
+]
+
+const validateEvent = [
+  check('venueId')
+    .exists({ checkFalsy: true })
+    .withMessage('Venue does not exist'),
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Name must be at least 5 characters'),
+  check('type')
+    .exists({ checkFalsy: true })
+    .withMessage('Type must be Online or In person'),
+  check('capacity')
+    .exists({ checkFalsy: true })
+    .withMessage('Capacity must be an integer'),
+  check('price')
+    .exists()
+    .withMessage('Price is invalid'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Description is required'),
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .withMessage('Start date must be in the future'),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .withMessage('End date is less than start date'),
   handleValidationErrors
 ]
 
@@ -101,8 +129,62 @@ router.get('/:groupId/venues',
 
   })
 
+router.post('/:groupId/events',
+  [requireAuth, validateEvent],
+  async (req, res) => {
+    let { user } = req
+    user = user.toJSON()
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+  const member = await Membership.findOne({
+      where: {
+      userId: user.id,
+      status: 'co-host'
+    }
+  })
+  const group = await Group.findByPk(req.params.groupId)
+  if(!group) {
+    res.status(404)
+    res.json({
+      message: "Group couldn't be found",
+      statusCode: 404
+    })
+  }
+  const isGroup = group.toJSON()
+  if(isGroup.organizerId === user.id || member) {
+    const event = await Event.create({
+      groupId: +req.params.groupId,
+      venueId: venueId,
+      name: name,
+      type: type,
+      capacity: capacity,
+      price: price,
+      description: description,
+      startDate: startDate,
+      endDate: endDate
+    })
+    res.json({
+      id: event.id,
+      groupId: event.groupId,
+      venueId: event.venueId,
+      name: event.name,
+      type: event.type,
+      capacity: event.capacity,
+      price: event.price,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate
+    })
+  } else {
+    res.status(403)
+    res.json({
+      message: 'Forbidden',
+      statusCode: 403
+    })
+  }
+  })
+
 router.get('/current',
-  [restoreUser, requireAuth],
+  [requireAuth],
   async (req, res) => {
     let { user } = req;
     user = user.toJSON()
@@ -216,7 +298,7 @@ router.post('/:groupId/venues',
   })
 
 router.post('/',
-  [restoreUser, requireAuth, validateGroup],
+  [requireAuth, validateGroup],
   async (req, res) => {
     let { user } = req
     user = user.toJSON()
