@@ -136,7 +136,18 @@ router.put('/:eventId',
     if(endDate) event.endDate = endDate;
     await event.save()
 
-    res.json(event)
+    res.json({
+      id: event.id,
+      groupId: event.groupId,
+      venueId: event.venueId,
+      name: event.name,
+      type: event.type,
+      capacity: event.capacity,
+      price: event.price,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate
+    })
   } else {
     res.status(403)
     res.json({
