@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Group,
         { foreignKey: 'groupId' }
       )
+      Event.hasMany(
+        models.Attendance,
+        { foreignKey: 'eventId' }
+      )
     }
   }
   Event.init({
