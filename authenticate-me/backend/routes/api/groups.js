@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User, GroupImage, Membership, Venue, Event } = require('../../db/models');
+const { Group, User, GroupImage, Membership, Venue, Event, EventImage, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -352,7 +352,87 @@ router.post('/',
       }
     })
 
-  router.delete('/:groupId/image')
+  router.get('/:groupId/events',
+    async (req, res) => {
+    const events = await Event.findAll({
+      where: {
+        groupId: req.params.groupId,
+      },
+      include: [
+        {
+          model: EventImage
+        },
+        {
+          model: Group,
+          attributes: [
+            'id', 'name', 'city', 'state'
+          ]
+        },
+        {
+          model: Venue,
+          attributes: [
+            'id', 'city', 'state'
+          ]
+        },
+      ],
+    })
+    if (!events) {
+      res.status(404)
+      res.json({
+        message: "Group couldn't be found",
+        statusCode: 404
+      })
+    }
+    const eventList = []
+    events.forEach(event => {
+      eventList.push(event.toJSON())
+
+    });
+    const numAttending = async () => {
+      for (let event of eventList) {
+        const attendees = await Attendance.count({
+          where: {
+            eventId: event.id
+          }
+        })
+        event.numAttending = attendees
+      }
+    }
+    await numAttending()
+    eventList.forEach(event => {
+      event.EventImages.forEach(image => {
+        if (image.preview === true) {
+          event.previewImage = image.url
+        }
+      })
+      if (!event.previewImage) {
+        event.previewImage = 'no preview image found'
+      }
+      delete event.EventImages
+      delete event.createdAt
+      delete event.updatedAt
+    })
+    const dataArr = []
+    eventList.forEach(event => {
+      const data = {
+        id: event.id,
+        groupId: event.groupId,
+        venueId: event.venueId,
+        name: event.name,
+        type: event.type,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        numAttending: event.numAttending,
+        previewImage: event.previewImage,
+        Group: event.Group,
+        Venue: event.Venue
+      }
+      dataArr.push(data)
+    })
+
+    res.json({Events: dataArr
+    })
+    })
 
   router.delete('/:groupId',
     [requireAuth, restoreUser],
