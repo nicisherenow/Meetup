@@ -5,8 +5,37 @@ const { User, Membership, Group, EventImage, Event, Venue, Attendance, sequelize
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const user = require('../../db/models/user');
+const e = require('express');
 
 const router = express.Router();
+
+const validateEvent = [
+  check('venueId')
+    .exists()
+    .withMessage('Venue does not exist'),
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Name must be at least 5 characters'),
+  check('type')
+    .exists({ checkFalsy: true })
+    .withMessage('Type must be Online or In person'),
+  check('capacity')
+    .exists({ checkFalsy: true })
+    .withMessage('Capacity must be an integer'),
+  check('price')
+    .exists({ checkFalsy: true})
+    .withMessage('Price is invalid'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Description is required'),
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .withMessage('Start date must be in the future'),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .withMessage('End date is less than start date'),
+  handleValidationErrors
+]
 
 router.post('/:eventId/images',
   requireAuth,
@@ -53,6 +82,69 @@ router.post('/:eventId/images',
     })
   }
 })
+
+router.put('/:eventId',
+  [requireAuth, validateEvent],
+  async (req, res) => {
+  const userId = req.user.id;
+  const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
+  const event = await Event.findByPk(req.params.eventId, {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
+    }
+  })
+  if (!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const venue = await Venue.findOne({
+    where: {
+      id: venueId
+    }
+  })
+  if(!venue) {
+    res.status(404)
+    res.json({
+      message: "Venue couldn't be found",
+      statusCode: 404
+    })
+  }
+  const member = Membership.findOne({
+    where: {
+      groupId: event.groupId,
+      userId: userId,
+      status: 'co-host'
+    }
+  })
+  const group = await Group.findOne({
+    where: {
+      organizerId: userId,
+      id: req.params.eventId
+    }
+  })
+  if (group || member) {
+    if(venueId) event.venueId = venueId;
+    if(name) event.name = name;
+    if(type) event.type = type;
+    if(capacity) event.capacity = capacity;
+    if(price) event.price = price;
+    if(description) event.description = description;
+    if(startDate) event.startDate = startDate;
+    if(endDate) event.endDate = endDate;
+    await event.save()
+
+    res.json(event)
+  } else {
+    res.status(403)
+    res.json({
+      message: 'Forbidden',
+      statusCode: 403
+    })
+  }
+  })
 
 router.get('/:eventId',
   async (req, res) => {
