@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User, GroupImage, Membership, Venue, Event, EventImage, Attendance } = require('../../db/models');
+const { Group, User, GroupImage, Membership, Venue, Event, EventImage, Attendance, Op } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -49,9 +49,6 @@ const validateVenue = [
 ]
 
 const validateEvent = [
-  check('venueId')
-    .exists({ checkFalsy: true })
-    .withMessage('Venue does not exist'),
   check('name')
     .exists({ checkFalsy: true })
     .withMessage('Name must be at least 5 characters'),
@@ -77,9 +74,37 @@ const validateEvent = [
 ]
 
 router.get('/', async (req, res) => {
-  const groups = await Group.findAll()
+  const groups = await Group.findAll({
+    include: {
+      model: GroupImage
+    },
+  })
+  const groupList = []
+    groups.forEach(group => {
+      groupList.push(group.toJSON())
+    })
+    const numMembers = async () => {
+      for (let group of groupList) {
+        const members = await Membership.count({
+          where: {groupId: group.id}
+        })
+        group.numMembers = members;
+      }
+    }
+    await numMembers()
+    groupList.forEach(group => {
+      group.GroupImages.forEach(image => {
+        if (image.preview === true) {
+          group.previewImage = image.url
+        }
+      })
+      if(!group.previewImage) {
+        group.previewImage = 'no preview image'
+      }
+      delete group.GroupImages
+    })
 
-  res.json(groups)
+  res.json({Groups: groupList})
 })
 
 router.get('/:groupId/venues',
@@ -184,11 +209,10 @@ router.post('/:groupId/events',
   })
 
 router.get('/current',
-  [requireAuth],
+  requireAuth,
   async (req, res) => {
     let { user } = req;
     user = user.toJSON()
-  if (user) {
     const groups = await Group.findAll({
       where: {
         organizerId: user.id
@@ -197,11 +221,49 @@ router.get('/current',
         model: GroupImage
       }
     })
+    const groupList = []
+    groups.forEach(group => {
+      groupList.push(group.toJSON())
+    })
+    // const isMember = await Membership.findAll({
+    //   where: {
+    //     userId: user.id
+    //   },
+    //   attributes: [],
+    //   include: {
+    //     model: Group
+    //   }
+    // })
+    // isMember.forEach(member => {
+    //   groupList.push(member.toJSON())
+    // })
+    const numMembers = async () => {
+      for (let group of groupList) {
+        const members = await Membership.count({
+          where: {
+            groupId: group.id
+          }
+        })
+      group.numMembers = members;
+      }
+    }
+    await numMembers()
+    groupList.forEach(group => {
+      group.GroupImages.forEach(image => {
+        if (image.preview === true) {
+          group.previewImage = image.url
+        }
+      })
+      if(!group.previewImage) {
+        group.previewImage = 'no preview image'
+      }
+      delete group.GroupImages
+    })
+
 
     res.json({
-      Groups: groups
+      Groups: groupList
     })
-    }
   })
 
 router.post('/:groupId/images',
@@ -354,6 +416,7 @@ router.post('/',
 
   router.get('/:groupId/events',
     async (req, res) => {
+    const group = await Group.findByPk(req.params.groupId)
     const events = await Event.findAll({
       where: {
         groupId: req.params.groupId,
@@ -376,7 +439,7 @@ router.post('/',
         },
       ],
     })
-    if (!events) {
+    if (!group) {
       res.status(404)
       res.json({
         message: "Group couldn't be found",

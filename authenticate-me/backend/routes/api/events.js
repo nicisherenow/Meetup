@@ -54,6 +54,64 @@ router.post('/:eventId/images',
   }
 })
 
+router.get('/:eventId',
+  async (req, res) => {
+  const event = await Event.findByPk(req.params.eventId, {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
+    include: [
+      {
+        model: Group,
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'type', 'organizerId', 'about']
+        }
+      },
+      {
+        model: Venue,
+        attributes: {
+          exclude: ['groupId', 'createdAt', 'updatedAt']
+        }
+      },
+      {
+        model: EventImage,
+        attributes: {
+          exclude: ['eventId', 'createdAt', 'updatedAt']
+        }
+      }
+    ]
+  })
+  if (!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const attending = await Attendance.count({
+    where: {
+      eventId: event.id
+    }
+  })
+  res.json({
+    id: event.id,
+    groupId: event.groupId,
+    venueId: event.venueId,
+    name: event.name,
+    description: event.description,
+    type: event.type,
+    capacity: event.capacity,
+    price: event.price,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    numAttending: attending,
+    Group: event.Group,
+    Venue: event.Venue,
+    EventImages: event.EventImages
+  })
+})
+
+
 router.get('/', async (req, res) => {
   const events = await Event.findAll({
     include: [
