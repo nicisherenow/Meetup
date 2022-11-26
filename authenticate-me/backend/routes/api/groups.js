@@ -1,9 +1,10 @@
 const express = require('express')
 
 const { restoreUser, requireAuth } = require('../../utils/auth');
-const { Group, User, GroupImage, Membership, Venue, Event, EventImage, Attendance, Op } = require('../../db/models');
+const { Group, User, GroupImage, Membership, Venue, Event, EventImage, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize')
 
 const router = express.Router();
 
@@ -265,6 +266,71 @@ router.get('/current',
       Groups: groupList
     })
   })
+
+router.get('/:groupId', async (req, res) => {
+  const group = await Group.findByPk(req.params.groupId, {
+    include: [
+      {
+        model: GroupImage,
+        attributes: ['id', 'url', 'preview']
+      },
+      {
+        model: User
+      },
+      {
+        model: Venue
+      }
+    ]
+  })
+  if (!group) {
+    res.status(404)
+    res.json({
+      message: "Group couldn't be found",
+      statusCode: 404
+    })
+  }
+  const organizer = await User.findOne({
+    where: {
+      id: group.organizerId,
+    },
+    attributes: [ 'id', 'firstName', 'lastName' ]
+  })
+  const venues = await Venue.findAll({
+    where: {
+      groupId: req.params.groupId
+    },
+    attributes: [ 'id', 'groupId', 'address', 'city', 'state', 'lat', 'lng' ]
+  })
+  const members = async () => {
+    const total = await Membership.count({
+      where: {
+        groupId: group.id,
+        status: {
+          [Op.or]:['co-host', 'member']
+        }
+      }
+    })
+    group.numMembers = total
+  }
+  await members()
+  res.json({
+    id: group.id,
+    organizerId: group.organizerId,
+    name: group.name,
+    about: group.about,
+    type: group.type,
+    private: group.private,
+    city: group.city,
+    state: group.state,
+    createdAt: group.createdAt,
+    updatedAt: group.updatedAt,
+    numMembers: group.numMembers,
+    GroupImages: group.GroupImages,
+    Organizer: organizer,
+    Venues: venues
+  }
+  )
+})
 
 router.post('/:groupId/images',
   [restoreUser, requireAuth,],
