@@ -4,7 +4,8 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Membership, Group, EventImage, Event, Venue, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const user = require('../../db/models/user');
 
 const router = express.Router();
 
@@ -156,7 +157,8 @@ router.get('/:eventId/attendees', async (req, res) => {
   if(!event) {
     res.status(404)
     res.json({
-      message: "Event couldn't be found"
+      message: "Event couldn't be found",
+      statusCode: 404
     })
   }
   const isOrganizer = await Group.findOne({
@@ -224,6 +226,51 @@ router.get('/:eventId/attendees', async (req, res) => {
     res.json(attendanceList)
   }
 })
+
+router.delete('/:eventId/attendance',
+  requireAuth, async (req, res) => {
+  const userID = req.user.id
+  const { memberId } = req.body
+  const event = await Event.findByPk(req.params.eventId)
+  if (!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const eventAttendee = await Attendance.findOne({
+    where: {
+      eventId: event.id,
+      userId: memberId
+    }
+  })
+  if(!eventAttendee) {
+    res.status(404)
+    res.json({
+      message: "Attendance does not exist for this User",
+      statusCode: 404
+    })
+  }
+  const isOrganizer = await Group.findOne({
+    where: {
+      organizerId: userID,
+      id: event.groupId
+    }
+  })
+  if (isOrganizer || userID === memberId) {
+    await eventAttendee.destroy()
+    res.json({
+      message: "Successfully deleted attendance from event"
+    })
+  } else {
+    res.status(403)
+    res.json({
+      message: "Only the User or organizer may delete an Attendance",
+      statusCode: 403
+    })
+  }
+  })
 
 router.post('/:eventId/attendance',
   requireAuth, async (req, res) => {
