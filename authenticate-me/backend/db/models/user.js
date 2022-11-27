@@ -40,11 +40,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsToMany(
         models.Event,
-        { through: models.Attendance }
+        {
+          through: models.Attendance,
+          foreignKey: 'userId',
+          otherKey: 'eventId'
+        }
       )
       User.belongsToMany(
         models.Group,
-        { through: models.Membership }
+        {
+          through: models.Membership,
+          foreignKey: 'userId',
+          otherKey: 'groupId'
+        }
       )
       User.hasMany(
         models.Group,
