@@ -16,21 +16,21 @@ module.exports = {
       eventId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'Events',
-        //   key: 'id'
-        // },
+        references: {
+          model: 'Events',
+          key: 'id'
+        },
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'Users',
-        //   key: 'id'
-        // },
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
       },
       status: {
-        type: Sequelize.ENUM('member', 'waitlist', 'pending'),
+        type: Sequelize.ENUM('attending', 'waitlist', 'pending'),
         allowNull: false
       },
       createdAt: {
