@@ -1,11 +1,10 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Membership, Group, EventImage, Event, Venue, Attendance, sequelize, Op } = require('../../db/models');
+const { User, Membership, Group, EventImage, Event, Venue, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const user = require('../../db/models/user');
-const e = require('express');
+const { Op } = require('sequelize')
 
 const router = express.Router();
 
@@ -150,6 +149,81 @@ router.put('/:eventId/attendance',
     })
   }
   })
+
+router.get('/:eventId/attendees', async (req, res) => {
+  const userId = req.user.id
+  const event = await Event.findByPk(req.params.eventId)
+  if(!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found"
+    })
+  }
+  const isOrganizer = await Group.findOne({
+    where: {
+      organizerId: userId,
+      id: event.groupId,
+    }
+  })
+  const isCohost = await Group.findOne({
+    where: {
+      id: event.groupId,
+    },
+    include: {
+      model: Membership,
+      where: {
+        userId: userId,
+        status: 'co-host'
+      }
+    }
+  })
+  if (isOrganizer || isCohost) {
+    const allAttendees = await User.findAll({
+      attributes: ['id', 'firstName', 'lastName'],
+      include: {
+        model: Attendance,
+        attributes: ['status'],
+        where: {
+          eventId: event.id
+        }
+      }
+    })
+    const attendanceList = []
+    allAttendees.forEach(attendee => {
+      attendanceList.push(attendee.toJSON())
+    })
+    attendanceList.forEach(attendee => {
+      const attends = attendee.Attendances.pop()
+      attendee.Attendance = attends
+      delete attendee.Attendances
+    })
+    res.json(attendanceList)
+  } else {
+    const allAttendees = await User.findAll({
+      attributes: ['id', 'firstName', 'lastName'],
+      include: {
+        model: Attendance,
+        attributes: ['status'],
+        where: {
+          eventId: event.id,
+          status: {
+            [Op.in]: ['waitlist', 'attending']
+          }
+        }
+      }
+    })
+    const attendanceList = []
+    allAttendees.forEach(attendee => {
+      attendanceList.push(attendee.toJSON())
+    })
+    attendanceList.forEach(attendee => {
+      const attends = attendee.Attendances.pop()
+      attendee.Attendance = attends
+      delete attendee.Attendances
+    })
+    res.json(attendanceList)
+  }
+})
 
 router.post('/:eventId/attendance',
   requireAuth, async (req, res) => {

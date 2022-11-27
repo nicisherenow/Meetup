@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Membership,
         { foreignKey: 'userId' }
       )
+      User.hasMany(
+        models.Attendance,
+        { foreignKey: 'userId' }
+      )
     }
   };
 
