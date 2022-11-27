@@ -59,7 +59,7 @@ router.post('/:eventId/images',
   const attendee = await Attendance.findOne({
     where: {
       userId: userId,
-      status: 'member'
+      status: 'attending'
     }
   })
   const isGroup = group.toJSON()
@@ -83,9 +83,77 @@ router.post('/:eventId/images',
   }
 })
 
+router.put('/:eventId/attendance',
+  requireAuth, async (req, res) => {
+  const userID = req.user.id;
+  const { userId, status } = req.body
+  const event = await Event.findByPk(req.params.eventId)
+  if(!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const isAttendingEvent = await Attendance.findOne({
+    where: {
+      userId: userId,
+      eventId: event.id
+    }
+  })
+  if(!isAttendingEvent) {
+    res.status(404)
+    res.json({
+      message: "Attendance between user and the event does not exist",
+      statusCode: 404
+    })
+  }
+  if(status === 'pending') {
+    res.status(400)
+    res.json({
+      message: "Cannot change an attendance status to pending",
+      statusCode: 400
+    })
+  }
+  const isOrganizer = await Group.findOne({
+    where: {
+      organizerId: userID,
+      id: event.groupId
+    }
+  })
+  const isCohost = await Group.findOne({
+    where: {
+      id: event.groupId,
+    },
+    include: {
+      model: Membership,
+      where: {
+        userId: userID,
+        status: 'co-host'
+      }
+    }
+  })
+  if (isOrganizer || isCohost) {
+    isAttendingEvent.status = status;
+    await isAttendingEvent.save()
+    res.json({
+      id: isAttendingEvent.id,
+      eventId: isAttendingEvent.eventId,
+      userId: isAttendingEvent.userId,
+      status: isAttendingEvent.status
+    })
+  } else {
+    res.status(403)
+    res.json({
+      message: "Forbidden",
+      statusCode: 403
+    })
+  }
+  })
+
 router.post('/:eventId/attendance',
   requireAuth, async (req, res) => {
-  const userId = req.user.id
+  const userId = req.user.id;
   const event = await Event.findByPk(req.params.eventId)
   if(!event) {
     res.status(404)
@@ -130,7 +198,7 @@ router.post('/:eventId/attendance',
     where: {
       userId: userId,
       eventId: event.id,
-      status: 'member'
+      status: 'attending'
     }
   })
   if(isAttending) {
