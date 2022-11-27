@@ -28,6 +28,7 @@ module.exports = {
           model: 'Groups',
           key: 'id'
         },
+        onDelete: 'CASCADE'
       },
       status: {
         type: Sequelize.ENUM('co-host', 'member', 'pending'),
