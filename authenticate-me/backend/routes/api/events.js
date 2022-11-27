@@ -4,7 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Membership, Group, EventImage, Event, Venue, Attendance } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize');
+const { Op, } = require('sequelize');
 
 const router = express.Router();
 
@@ -35,6 +35,8 @@ const validateEvent = [
     .withMessage('End date is less than start date'),
   handleValidationErrors
 ]
+
+
 
 router.post('/:eventId/images',
   requireAuth,
@@ -596,5 +598,27 @@ router.get('/', async (req, res) => {
   res.json({Events: dataArr
   })
 })
+
+// router.get('', async (req, res) => {
+//   let { page, size, name, type, startDate } = req.query
+//   const pagination = {}
+//   if (+page >= 1 && +page <= 10) {
+//     +page
+//   } else {
+//     page = 1
+//   }
+//   if (+size >= 1 && +size <= 20) {
+//     +size
+//   } else {
+//     size = 20
+//   }
+//   pagination.limit = size,
+//   pagination.offset = size * (page - 1)
+
+//   const events = await Event.findAll({
+//     ...pagination
+//   })
+//   res.json(events)
+// })
 
 module.exports = router;
