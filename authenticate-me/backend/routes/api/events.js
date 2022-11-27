@@ -83,6 +83,75 @@ router.post('/:eventId/images',
   }
 })
 
+router.post('/:eventId/attendance',
+  requireAuth, async (req, res) => {
+  const userId = req.user.id
+  const event = await Event.findByPk(req.params.eventId)
+  if(!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const group = await Group.findOne({
+    where: {
+      id: event.groupId,
+    },
+    include: {
+      model: Membership,
+      where: {
+        userId: userId
+      }
+    }
+  })
+  if (!group) {
+    res.status(403)
+    res.json({
+      message: "Forbidden",
+      statusCode: 403
+    })
+  }
+  const isPending = await Attendance.findOne({
+    where: {
+      userId: userId,
+      eventId: event.id,
+      status: 'pending'
+    }
+  })
+  if(isPending) {
+    res.status(400)
+    res.json({
+      message: "Attendance has already been requested",
+      statusCode: 400
+    })
+  }
+  const isAttending = await Attendance.findOne({
+    where: {
+      userId: userId,
+      eventId: event.id,
+      status: 'member'
+    }
+  })
+  if(isAttending) {
+    res.status(400)
+    res.json({
+      message: "User is already an attendee of the event",
+      statusCode: 400
+    })
+  }
+  if (!isAttending && !isPending && group) {
+    const attendee = await Attendance.create({
+      userId: userId,
+      eventId: event.id
+    })
+    res.json({
+      userId: attendee.userId,
+      status: attendee.status
+    })
+  }
+  })
+
 router.put('/:eventId',
   [requireAuth, validateEvent],
   async (req, res) => {
