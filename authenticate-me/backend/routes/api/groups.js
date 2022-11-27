@@ -833,7 +833,8 @@ router.post('/',
     if (group.organizerId === userId || memberId === userId) {
       await member.destroy()
       res.json({
-        message: 'Successfully deleted membership from group'
+        message: 'Successfully deleted membership from group',
+        statusCode: 200
       })
     } else {
       res.status(403)

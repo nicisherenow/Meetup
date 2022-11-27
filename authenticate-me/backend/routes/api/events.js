@@ -262,7 +262,8 @@ router.delete('/:eventId/attendance',
   if (isOrganizer || userID === memberId) {
     await eventAttendee.destroy()
     res.json({
-      message: "Successfully deleted attendance from event"
+      message: "Successfully deleted attendance from event",
+      statusCode: 200
     })
   } else {
     res.status(403)
@@ -315,7 +316,8 @@ router.delete('/:eventId',
   if (isOrganizer || isCohost) {
     await event.destroy()
     res.json({
-      message: "Successfully deleted"
+      message: "Successfully deleted",
+      statusCode: 200
     })
   } else {
     res.status(403)
