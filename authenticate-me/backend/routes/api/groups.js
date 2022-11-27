@@ -602,6 +602,75 @@ router.post('/',
     } return
     })
 
+  router.get('/:groupId/members', async (req, res) => {
+    const userId = req.user.id
+    const group = await Group.findByPk(req.params.groupId)
+    if (!group) {
+      res.status(404)
+      res.json({
+        message: "Group couldn't be found",
+        statusCode: 404
+      })
+    }
+    const isCohost = await Membership.findOne({
+      where: {
+        groupId: group.id,
+        userId: userId,
+        status: 'co-host'
+      }
+    })
+    if (group.organizerId === userId || isCohost) {
+      const allMembers = await User.findAll({
+        attributes: ['id', 'firstName', 'lastName'],
+        include: {
+          model: Membership,
+          attributes: ['status'],
+          where: {
+            groupId: group.id
+          }
+        }
+      })
+      const memberList = []
+      allMembers.forEach(member => {
+        memberList.push(member.toJSON())
+      })
+      memberList.forEach(member => {
+        member.Membership = {}
+        const statum = member.Memberships.pop()
+        member.Membership = statum
+        delete member.Memberships
+      })
+
+      res.json({Members: memberList})
+    } else {
+      const someMembers = await User.findAll({
+        attributes: ['id', 'firstName', 'lastName'],
+        include: {
+          model: Membership,
+          attributes: ['status'],
+          where: {
+            groupId: group.id,
+            status: {
+              [Op.in]: ['co-host', 'member']
+            }
+          }
+        },
+      })
+      const memberList = []
+      someMembers.forEach(member => {
+        memberList.push(member.toJSON())
+      })
+      memberList.forEach(member => {
+        member.Membership = {}
+        const statum = member.Memberships.pop()
+        member.Membership = statum
+        delete member.Memberships
+      })
+
+      res.json({Members: memberList})
+    }
+  })
+
   router.put('/:groupId',
     [requireAuth, restoreUser, validateGroup],
     async (req, res) => {
