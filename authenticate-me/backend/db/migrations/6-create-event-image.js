@@ -20,6 +20,7 @@ module.exports = {
           model: 'Events',
           key: 'id'
         },
+        onDelete: 'CASCADE'
       },
       url: {
         type: Sequelize.STRING,

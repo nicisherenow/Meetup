@@ -49,7 +49,8 @@ router.delete('/:imageId',
   if(isOrganizer || isCohost) {
     await image.destroy()
     res.json({
-      message: "Successfully deleted"
+      message: "Successfully deleted",
+      statusCode: 200
     })
   } else {
     res.status(403)
