@@ -193,7 +193,7 @@ router.post('/:groupId/events',
       name: name,
       type: type,
       capacity: capacity,
-      price: price,
+      price: +price,
       description: description,
       startDate: startDate,
       endDate: endDate
