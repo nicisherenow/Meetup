@@ -5,7 +5,6 @@ const { User, Membership, Group, EventImage, Event, Venue, Attendance } = requir
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
-const user = require('../../db/models/user');
 
 const router = express.Router();
 
@@ -267,6 +266,59 @@ router.delete('/:eventId/attendance',
     res.status(403)
     res.json({
       message: "Only the User or organizer may delete an Attendance",
+      statusCode: 403
+    })
+  }
+  })
+
+router.delete('/:eventId',
+  requireAuth, async (req, res) => {
+  const userId = req.user.id
+  const event = await Event.findByPk(req.params.eventId)
+  if(!event) {
+    res.status(404)
+    res.json({
+      message: "Event couldn't be found",
+      statusCode: 404
+    })
+  }
+  const isOrganizer = await Group.findOne({
+    where: {
+      organizerId: userId,
+    },
+    include: {
+      model: Event,
+      where: {
+        id: event.id
+      }
+    }
+  })
+  const isCohost = await Group.findOne({
+    include: [
+      {
+        model: Event,
+        where: {
+          id: event.id
+        }
+      },
+      {
+        model: Membership,
+        where: {
+          userId: userId,
+          status: 'co-host'
+        }
+      }
+    ]
+  })
+  if (isOrganizer || isCohost) {
+    await event.destroy()
+    res.json({
+      message: "Successfully deleted"
+    })
+  } else {
+    res.status(403)
+    res.json({
+      message: "Forbidden",
       statusCode: 403
     })
   }
