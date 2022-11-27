@@ -834,7 +834,6 @@ router.post('/',
       await member.destroy()
       res.json({
         message: 'Successfully deleted membership from group',
-        statusCode: 200
       })
     } else {
       res.status(403)
