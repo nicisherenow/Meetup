@@ -152,9 +152,12 @@ router.get('/:groupId/venues',
       where: {
         groupId: req.params.groupId
       },
-
     })
-    res.json(venues)
+    const venueList = []
+    venues.forEach(venue => {
+      venueList.push(venue.toJSON())
+    })
+    res.json({Venues: venueList})
   } else {
     res.status(403)
     res.json({

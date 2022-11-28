@@ -599,26 +599,6 @@ router.get('/', async (req, res) => {
   })
 })
 
-// router.get('', async (req, res) => {
-//   let { page, size, name, type, startDate } = req.query
-//   const pagination = {}
-//   if (+page >= 1 && +page <= 10) {
-//     +page
-//   } else {
-//     page = 1
-//   }
-//   if (+size >= 1 && +size <= 20) {
-//     +size
-//   } else {
-//     size = 20
-//   }
-//   pagination.limit = size,
-//   pagination.offset = size * (page - 1)
 
-//   const events = await Event.findAll({
-//     ...pagination
-//   })
-//   res.json(events)
-// })
 
 module.exports = router;
