@@ -205,7 +205,7 @@ router.post('/:groupId/events',
       name: event.name,
       type: event.type,
       capacity: event.capacity,
-      price: event.price,
+      price: +event.price,
       description: event.description,
       startDate: event.startDate,
       endDate: event.endDate
@@ -410,7 +410,7 @@ router.post('/:groupId/venues',
   const isGroup = group.toJSON()
   if (isGroup.organizerId === user.id || member) {
     const venue = await Venue.create({
-      groupId: req.params.groupId,
+      groupId: +req.params.groupId,
       address: address,
       city: city,
       state: state,
