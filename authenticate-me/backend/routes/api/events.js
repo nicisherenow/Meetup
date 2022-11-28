@@ -528,7 +528,91 @@ router.get('/:eventId',
 
 
 router.get('/', async (req, res) => {
+  const pagination = {}
+  const where = {}
+  if (req.query) {
+    let { page, size } = req.query;
+
+    page = +page;
+    size = +size;
+    if (page <= 0 && size <= 0 ) {
+      res.status(400)
+      res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be greater than or equal to 1"
+        }
+      })
+    } else if (page <= 0) {
+      res.status(400)
+      res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          page: "Page must be greater than or equal to 1",
+        }
+      })
+    } else if (size <= 0) {
+      res.status(400)
+      res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          size: "Size must be greater than or equal to 1"
+        }
+      })
+    }
+
+    if(page > 10) page = 1;
+    if(size > 20) size = 20;
+
+
+    if((!isNaN(page)&&!isNaN(size)) && (page >= 1 && page <= 10) && (size >= 1 && size <= 20)) {
+      pagination.limit = size;
+      pagination.offset = size * (page - 1)
+    }
+    if(req.query.name && isNaN(+req.query.name)) {
+      where.name = { [Op.substring]: req.query.name }
+    } else if (req.query.name && !isNaN(+req.query.name)) {
+      res.status(400)
+      res.json({
+        message: 'Validation Error',
+        statusCode: 400,
+        errors: {
+          name: "Name must be a string"
+        }
+      })
+    }
+    if(req.query.type && (req.query.type === 'In person' || req.query.type === 'Online')) {
+      where.type = req.query.type
+    } else if (req.query.type){
+      res.status(400)
+      res.json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+          type: "Type must be 'Online' or 'In person'"
+        }
+      })
+    }
+    if(req.query.startDate && Date.parse(req.query.startDate) > Date.now()) {
+      where.startDate = { [Op.startsWith]: req.query.startDate }
+    } else if (req.query.startDate && Date.parse(req.query.startDate) < Date.now()) {
+      res.status(400)
+      res.json({
+        message: 'Validation Error',
+        statusCode: 400,
+        errors: {
+          startDate: "Start date must be a valid datetime"
+        }
+      })
+    }
+
+  }
   const events = await Event.findAll({
+    where: {...where},
     include: [
       {
         model: EventImage
@@ -546,6 +630,7 @@ router.get('/', async (req, res) => {
         ]
       },
     ],
+    ...pagination,
   })
 
   const eventList = []
@@ -590,7 +675,7 @@ router.get('/', async (req, res) => {
       numAttending: event.numAttending,
       previewImage: event.previewImage,
       Group: event.Group,
-      Venue: event.Venue
+      Venue: event.Venue,
     }
     dataArr.push(data)
   })

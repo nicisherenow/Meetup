@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, ValidationError
 } = require('sequelize');
 const attendance = require('./attendance');
 const user = require('./user');
@@ -75,10 +75,30 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        isDate: true,
+        isAfterToday(value) {
+          if(Date.parse(value) > Date.now()){
+            return true
+          } else {
+            throw new ValidationError ("Start date must be in the future")
+          }
+        }
+      }
     },
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        isDate: true,
+        isAfterStart(value) {
+          if (Date.parse(value) > Date.parse(this.startDate)) {
+            return true
+          } else {
+            throw new ValidationError ("End date is less than start date")
+          }
+        }
+      }
     }
   }, {
     sequelize,
