@@ -454,7 +454,6 @@ router.post('/',
       city,
       state
     })
-    console.log(group)
     res.status(201)
     res.json({
       id: group.id,
@@ -530,13 +529,11 @@ router.post('/',
     if (isCohost && status === 'member') {
       memberOfGroup.id
       if(status)memberOfGroup.status = status
-      console.log(memberOfGroup)
       await memberOfGroup.save()
       res.json(memberOfGroup)
     } else if (group.organizerId === userId && (status === 'member' || status === 'co-host')) {
       memberOfGroup.id
       if(status)memberOfGroup.status = status
-      console.log(memberOfGroup)
       await memberOfGroup.save()
       res.json({
         id: memberOfGroup.id,
