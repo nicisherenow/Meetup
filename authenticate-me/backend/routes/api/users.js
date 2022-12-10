@@ -52,12 +52,13 @@ router.post(
 
     const token = await setTokenCookie(res, user);
 
-    return res.json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        token: token
+    return res.json({ user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      token: token
+    }
     });
   }
 );
