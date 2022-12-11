@@ -2,6 +2,34 @@
   display: none;
 }
 
+#homeButton {
+  font-size: 24px;
+}
+
+#expandDropDown, #collapseDropDown {
+  color: gray;
+  cursor: pointer;
+  margin-right: 40px;
+}
+
+#notLoggedIn {
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+}
+
+#loggedIn {
+  align-items: center;
+  justify-content: center;
+}
+
+#upperRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 li {
   display: flex;
   list-style: none;
@@ -9,16 +37,29 @@ li {
 }
 
 #profileButton {
-  margin-right: 40px;
-  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 5px;
   border: none;
   background-color: gray;
   font-weight: bold;
-  height: 25px;
-  width: 25px;
+  height: 48px;
+  width: 48px;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  justify-content: left;
 }
 
 ul {
   display: flex;
   justify-content: space-between;
+}
+
+#logoutButton {
+  cursor: pointer;
 }

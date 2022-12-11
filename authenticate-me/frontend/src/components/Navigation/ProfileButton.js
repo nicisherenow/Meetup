@@ -41,20 +41,23 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button id='profileButton' onClick={openMenu}>
+    <div id='upperRight'>
+      <span id='profileButton' onClick={openMenu}>
         {user ? user.firstName[0].toUpperCase() : <i className="fas fa-user-circle" /> }
-      </button>
+      </span>
+        {showMenu == true ? <span onClick={closeMenu} id='expandDropDown'><i className="fa-solid fa-chevron-up"></i></span> : <span onClick={openMenu} id="collapseDropDown"><i className="fa-solid fa-chevron-down"></i></span>}
+    </div>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+          <div id='loggedIn'>
+            <li className='userinfo'>{user.firstName} {user.lastName}</li>
+            <li className='userinfo'>{user.email}</li>
+            <li className='userinfo' id="logoutButton" onClick={logout}>
+              Log Out
             </li>
-          </>
+          </div>
         ) : (
-          <>
+          <div id='notLoggedIn'>
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
@@ -65,7 +68,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
       </ul>
     </>
