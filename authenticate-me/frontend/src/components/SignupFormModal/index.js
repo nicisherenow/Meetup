@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 
@@ -30,7 +32,11 @@ function SignupFormModal() {
 
   return (
     <div id='signupForm'>
-      <h1>Sign Up</h1>
+      <h1 id='signupH1'>Sign Up</h1>
+      <p>Already a member?<span id='loginModal'><OpenModalMenuItem
+              itemText="Log In"
+              modalComponent={<LoginFormModal />}
+            /></span></p>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
