@@ -29,7 +29,7 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div id='signupForm'>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -80,9 +80,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <button id='signupbutton' type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

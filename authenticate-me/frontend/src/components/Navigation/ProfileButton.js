@@ -41,8 +41,8 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button id='profileButton' onClick={openMenu}>
+        {user ? user.firstName[0].toUpperCase() : <i className="fas fa-user-circle" /> }
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
