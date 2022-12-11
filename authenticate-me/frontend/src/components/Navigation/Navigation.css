@@ -28,6 +28,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 30px;
 }
 
 li {
@@ -45,8 +46,8 @@ li {
   border: none;
   background-color: gray;
   font-weight: bold;
-  height: 48px;
-  width: 48px;
+  height: 51px;
+  width: 51px;
   color: white;
   cursor: pointer;
 }

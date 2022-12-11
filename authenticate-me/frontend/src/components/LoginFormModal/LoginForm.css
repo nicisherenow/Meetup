@@ -64,3 +64,11 @@ input:active {
   padding-top: 20px;
   border-top: 1px grey solid;
 }
+
+#signupModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: darkgreen
+}
