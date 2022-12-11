@@ -1,0 +1,66 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  border: black;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginButton, #demoLogin {
+  width: 360px;
+  height: 40px;
+  border-radius: 7px;
+  border: none;
+  background-color: tomato;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#loginButton {
+  margin-bottom: 60;
+}
+
+#loginButton:hover, #demoLogin:hover {
+  background-color: rgb(251, 117, 94);
+}
+
+label {
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+input {
+  width: 355px;
+  height: 35px;
+  margin-top: 7px;
+  border-radius: 6px;
+  border: 1px grey solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input:active {
+  border: 1px darkgreen solid;
+}
+
+#issaDemo {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px grey solid;
+}

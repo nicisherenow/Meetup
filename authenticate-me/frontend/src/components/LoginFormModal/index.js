@@ -23,9 +23,21 @@ function LoginFormModal() {
         }
       );
   };
+  const handleDemoSubmit = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+      .then(closeModal)
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        }
+      );
+  };
 
   return (
-    <>
+    <div className='loginForm'>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -51,9 +63,12 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button id='loginButton' type="submit">Log In</button>
       </form>
-    </>
+    <div id='issaDemo'>
+      <button id='demoLogin' type="submit" onClick={handleDemoSubmit}>Log in as Demo User</button>
+    </div>
+    </div>
   );
 }
 
