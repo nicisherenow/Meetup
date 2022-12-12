@@ -14,13 +14,39 @@
 
 #notLoggedIn {
   align-items: center;
-  justify-content: left;
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  border: 1px gray solid;
+  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  padding: 10px;
+  border-radius: .2rem;
+}
+
+#loginModalButton {
   cursor: pointer;
+}
+#signupModalButton {
+  cursor: pointer;
+}
+
+#loginModalButton:hover {
+  color: darkcyan;
+}
+#signupModalButton:hover {
+  color: darkcyan;
 }
 
 #loggedIn {
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  border: 1px gray solid;
+  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  padding: 10px;
+  border-radius: .2rem;
 }
 
 #upperRight {
@@ -52,9 +78,7 @@ li {
   cursor: pointer;
 }
 
-.profile-dropdown {
-  justify-content: left;
-}
+
 
 ul {
   display: flex;
@@ -63,4 +87,8 @@ ul {
 
 #logoutButton {
   cursor: pointer;
+}
+
+#logoutButton:hover {
+  color: darkcyan;
 }

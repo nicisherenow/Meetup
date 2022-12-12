@@ -41,7 +41,9 @@ function LoginFormModal() {
   return (
     <div className='loginForm'>
       <h1>Log In</h1>
-      <p>Not a member yet?<span id='signupModal'><OpenModalMenuItem
+      <p>Not a member yet?
+        <span id='signupModal'>
+          <OpenModalMenuItem
               itemText="Sign Up"
               modalComponent={<SignupFormModal />}
             /></span></p>

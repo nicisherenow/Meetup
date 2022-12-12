@@ -56,7 +56,7 @@ input {
 }
 
 input:active {
-  border: 1px darkgreen solid;
+  border: 1px darkcyan solid;
 }
 
 #issaDemo {
@@ -70,5 +70,5 @@ input:active {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: darkgreen
+  color: darkcyan
 }

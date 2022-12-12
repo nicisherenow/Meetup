@@ -55,7 +55,7 @@ input {
 }
 
 input:hover {
-  border: 1px darkgreen solid;
+  border: 1px darkcyan solid;
 }
 
 #loginModal {
@@ -63,9 +63,5 @@ input:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: darkgreen;
-}
-
-#signupH1 {
-  margin-bottom: 10px;
+  color: darkcyan;
 }

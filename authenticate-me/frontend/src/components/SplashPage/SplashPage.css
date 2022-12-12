@@ -1,0 +1,19 @@
+#home-splash {
+  background: url("../../Images/home-background.png") no-repeat center/cover;
+  display: block;
+}
+#content-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  height: auto;
+  margin-left: 20%;
+  margin-right: 20%;
+  justify-content: center;
+  align-items: center;
+}
+
+#group-image {
+  width: 300px;
+  height: 240px;
+}
