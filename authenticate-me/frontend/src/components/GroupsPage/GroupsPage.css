@@ -1,0 +1,23 @@
+
+#groups-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#alignment {
+  display: flex;
+  width: fit-content;
+  flex-direction: row;
+}
+
+.group-pic-container {
+  width: 151px;
+  height: 83px;
+  background-color: grey;
+  border-radius: .3rem;
+}
+
+.group-content-container {
+  flex-wrap: wrap;
+  width: 40%;
+}

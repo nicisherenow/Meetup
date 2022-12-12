@@ -11,7 +11,7 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li id='homeButton'>
-        <NavLink exact to="/"><img className='home-logo' src={require('../../Images/logo.png')} alt={'home-logo'}/></NavLink>
+        <NavLink exact to={sessionUser ? "/groups" : '/'}><img className='home-logo' src={require('../../Images/logo.png')} alt={'home-logo'}/></NavLink>
       </li>
       {isLoaded && (
         <li>

@@ -1,0 +1,16 @@
+.single-group-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20%;
+  margin-right: 20%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.pic-container {
+  width: 600px;
+  height: 337.5px;
+  border-radius: .4rem;
+  background-color: grey;
+}
