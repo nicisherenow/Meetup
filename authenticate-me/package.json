@@ -1,4 +1,8 @@
 {
+  "name": "authenticate-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "render-postbuild": "npm run build --prefix frontend",
     "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
@@ -8,5 +12,8 @@
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend",
     "build": "npm run build --prefix backend"
-  }
+  },
+  "keywords": [],
+  "author": "Nicholas Talbot",
+  "license": "ISC"
 }
