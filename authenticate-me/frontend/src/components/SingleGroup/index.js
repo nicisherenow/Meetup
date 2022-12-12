@@ -15,6 +15,7 @@ const SingleGroup = () => {
 
   if(!group) return null
   return (
+    <>
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
         <div>Placeholder</div>
@@ -26,6 +27,11 @@ const SingleGroup = () => {
       <p>Organized by {group.Organizer.firstName}</p>
       </div>
     </div>
+      <div className="about-section">
+        <h3>What we're about</h3>
+        <p>{group.about}</p>
+      </div>
+    </>
   )
 }
 

@@ -4,8 +4,7 @@
   margin-left: 20%;
   margin-right: 20%;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 40px;
 }
 
 .pic-container {
@@ -13,4 +12,13 @@
   height: 337.5px;
   border-radius: .4rem;
   background-color: grey;
+}
+
+.about-section {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30%;
+  margin-right: 30%;
 }
