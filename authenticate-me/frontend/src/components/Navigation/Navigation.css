@@ -1,0 +1,94 @@
+.hidden {
+  display: none;
+}
+
+#homeButton {
+  font-size: 24px;
+}
+
+#expandDropDown, #collapseDropDown {
+  color: gray;
+  cursor: pointer;
+  margin-right: 40px;
+}
+
+#notLoggedIn {
+  align-items: center;
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  border: 1px gray solid;
+  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  padding: 10px;
+  border-radius: .2rem;
+}
+
+#loginModalButton {
+  cursor: pointer;
+}
+#signupModalButton {
+  cursor: pointer;
+}
+
+#loginModalButton:hover {
+  color: darkcyan;
+}
+#signupModalButton:hover {
+  color: darkcyan;
+}
+
+#loggedIn {
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  border: 1px gray solid;
+  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  padding: 10px;
+  border-radius: .2rem;
+}
+
+#upperRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+li {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+}
+
+#profileButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 5px;
+  border: none;
+  background-color: gray;
+  font-weight: bold;
+  height: 51px;
+  width: 51px;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+#logoutButton {
+  cursor: pointer;
+}
+
+#logoutButton:hover {
+  color: darkcyan;
+}

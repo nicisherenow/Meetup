@@ -41,31 +41,40 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+    <div id='upperRight'>
+      <span id='profileButton' onClick={openMenu}>
+        {user ? user.firstName[0].toUpperCase() : <i className="fas fa-user-circle" /> }
+      </span>
+        {showMenu === true ?
+        <span onClick={closeMenu} id='expandDropDown'><i className="fa-solid fa-chevron-up"></i></span>
+         : <span onClick={openMenu} id="collapseDropDown"><i className="fa-solid fa-chevron-down"></i></span>}
+    </div>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+          <div id='loggedIn'>
+            <li className='userinfo'>{user.firstName} {user.lastName}</li>
+            <li className='userinfo'>{user.email}</li>
+            <li className='userinfo' id="logoutButton" onClick={logout}>
+              Log Out
             </li>
-          </>
+          </div>
         ) : (
-          <>
-            <OpenModalMenuItem
+          <div id='notLoggedIn'>
+            <span id='loginModalButton'>
+              <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
+              />
+              </span>
+            <span id='signupModalButton'>
+              <OpenModalMenuItem
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
-            />
-          </>
+              />
+              </span>
+          </div>
         )}
       </ul>
     </>
