@@ -1,6 +1,8 @@
+import { csrfFetch } from "./csrf";
 
 const LOAD_GROUPS = 'groups/loadGroups';
 const LOAD_GROUP = 'group/loadGroup';
+const CREATE_GROUP = 'group/createGroup';
 
 export const loadGroups = (groups) => {
   return {
@@ -14,14 +16,21 @@ export const loadGroup = (group) => {
     group
   }
 }
+
+export const createGroup = (group) => {
+  return {
+    type: CREATE_GROUP,
+    group
+  }
+}
 export const fetchGroups = () => async dispatch => {
-  const response = await fetch('/api/groups');
+  const response = await csrfFetch('/api/groups');
   const groups = await response.json();
   dispatch(loadGroups(groups));
 };
 
 export const fetchGroupById = (id) => async dispatch => {
-  const response = await fetch(`/api/groups/${id}`);
+  const response = await csrfFetch(`/api/groups/${id}`);
   const group = await response.json();
   dispatch(loadGroup(group));
 };
@@ -35,8 +44,13 @@ const groupsReducer = (state = initialState, action) => {
       Object.values(action.groups.Groups).forEach(group => { newState.allGroups[group.id] = group})
       return newState
     case LOAD_GROUP:
-      newState = { ...state }
-      newState.singleGroup = action.group
+      newState = { ...state,
+      singleGroup: {...action.group} }
+      return newState
+    case CREATE_GROUP:
+      newState = { ...state,
+      allGroups: {...state.allGroups, [action.group.id]: action.group},
+      singleGroup: {...state.singleGroup, ...action.group}}
       return newState
     default:
       return state

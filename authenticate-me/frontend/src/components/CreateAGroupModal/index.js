@@ -1,0 +1,108 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import './CreateAGroup.css';
+
+function CreateAGroupModal() {
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [about, setAbout] = useState("");
+  const [type, setType] = useState("In person");
+  const [isPrivate, setIsPrivate] = useState("false");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("")
+  const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+      setErrors([]);
+      return dispatch(sessionActions.signup({ name, about, type, isPrivate, city, state }))
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+  };
+
+  return (
+    <div id='createAGroupForm'>
+      <h1 id='groupH1'>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
+        <ul>
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+        <label>
+          Name
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          About
+          <input
+            type="text-area"
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Online
+          <input
+            type="radio"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+            checked={type === 'Online' ? true : false}
+          />
+        </label>
+        <label>
+          In person
+          <input
+            type="radio"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+            checked={type === "In person" ? true : false}
+          />
+        </label>
+        <label>
+          Private
+          <input
+            type="checkbox"
+            value={isPrivate}
+            onChange={(e) => setIsPrivate(e.target.value)}
+            required
+            checked={isPrivate === true ? true : false}
+          />
+        </label>
+        <label>
+          City
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          State
+          <input
+            type="text"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            required
+          />
+        </label>
+        <button id='createGroup' type="submit">Create Group</button>
+      </form>
+    </div>
+  );
+}
+
+export default CreateAGroupModal;

@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { fetchGroups } from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
+import CreateAGroupModal from '../CreateAGroupModal'
 import './GroupsPage.css'
 import { NavLink } from 'react-router-dom'
 
@@ -8,8 +10,6 @@ import { NavLink } from 'react-router-dom'
 const GroupsPage = () => {
   const dispatch = useDispatch()
   const groups = useSelector(state => Object.values(state.groupState.allGroups))
-  const groups2 = useSelector(state => state.groupState)
-  console.log(groups2)
   useEffect(() => {
     dispatch(fetchGroups())
   }, [dispatch])
@@ -17,8 +17,13 @@ const GroupsPage = () => {
   if (!groups) return null
   return (
     <div id='groups-container'>
+      <p>Not a member yet?
+        <span id='signupModal'>
+          <OpenModalMenuItem
+              itemText="Create A Group"
+              modalComponent={<CreateAGroupModal />}
+            /></span></p>
       {groups.map(group => (
-        <div id='alignment'>
           <NavLink to={`/groups/${group.id}`} id={`group-${group.id}`} className='groups'>
             <div className='group-pic-container'>
               <div>Placeholder</div>
@@ -30,7 +35,6 @@ const GroupsPage = () => {
               <p className='area5'>{group.numMembers} {group.numMembers > 1 || group.numMembers === 0 ? "members" : 'member'} • {group.private === false ? "Public" : "Private"}</p>
             </div>
           </NavLink>
-        </div>
       ))}
 
     </div>

@@ -11,7 +11,6 @@ const SingleGroup = () => {
     dispatch(fetchGroupById(groupId))
   }, [dispatch, groupId])
   const group = useSelector(state => state.groupState.singleGroup)
-  console.log(group, groupId)
 
   if(!group) return null
   return (
@@ -24,7 +23,7 @@ const SingleGroup = () => {
       <h1>{group.name}</h1>
       <p>{group.city}, {group.state}</p>
       <p>{group.numMembers} {group.numMembers > 1 || group.numMembers === 0 ? "members" : 'member'} • {group.private === false ? "Public" : "Private"} group</p>
-      <p>Organized by {group.Organizer.firstName}</p>
+      <p>Organized by {group.Organizer?.firstName}</p>
       </div>
     </div>
       <div className="about-section">

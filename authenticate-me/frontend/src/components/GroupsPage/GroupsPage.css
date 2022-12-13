@@ -6,17 +6,24 @@
   align-items: center;
 }
 
-#alignment {
+.groups {
+  border-top: 1px lightgrey solid;
   display: flex;
   width: fit-content;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .group-pic-container {
   width: 151px;
   height: 83px;
-  background-color: grey;
+  background-color: lightgrey;
   border-radius: .3rem;
+  display: flex;
+  align-self: flex-start;
+  margin-top: 20px;
 }
 
 .group-content-container {
