@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import * as sessionActions from "../../store/session";
 import { createAGroup } from "../../store/groups";
 import './CreateAGroup.css';
 
@@ -10,7 +9,7 @@ function CreateAGroupModal() {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [type, setType] = useState("In person");
-  const [isPrivate, setIsPrivate] = useState(true);
+  const [isPrivate, setIsPrivate] = useState("false");
   const [city, setCity] = useState("");
   const [state, setState] = useState("")
   const [errors, setErrors] = useState([]);
@@ -19,7 +18,7 @@ function CreateAGroupModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
-      return dispatch(createAGroup({ name, about, type, isPrivate, city, state }))
+      return dispatch(createAGroup({ name, about, type, private: isPrivate, city, state }))
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
@@ -52,6 +51,24 @@ function CreateAGroupModal() {
             required
           />
         </label>
+        <label>
+          City
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          State
+          <input
+            type="text"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            required
+          />
+        </label>
         <span className="radio-buttons">
         <label>
           Online
@@ -79,31 +96,23 @@ function CreateAGroupModal() {
           Private
           <input
             type="radio"
-            value={true}
+            value='true'
             onChange={(e) => setIsPrivate(e.target.value)}
             required
-            checked={isPrivate == true ? true : false}
+            checked={isPrivate === "true" ? true : false}
+          />
+        </label>
+        <label>
+          Public
+          <input
+            type="radio"
+            value='false'
+            onChange={(e) => setIsPrivate(e.target.value)}
+            required
+            checked={isPrivate === "false" ? true : false}
           />
         </label>
             </span>
-        <label>
-          City
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          State
-          <input
-            type="text"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            required
-          />
-        </label>
         <button id='createGroup' type="submit">Create Group</button>
       </form>
     </div>
