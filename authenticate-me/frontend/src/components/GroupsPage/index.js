@@ -17,10 +17,10 @@ const GroupsPage = () => {
   if (!groups) return null
   return (
     <div id='groups-container'>
-      <p>Not a member yet?
+      <p>Got a fun idea for a new Group?
         <span id='signupModal'>
           <OpenModalMenuItem
-              itemText="Create A Group"
+              itemText="Create a Group"
               modalComponent={<CreateAGroupModal />}
             /></span></p>
       {groups.map(group => (

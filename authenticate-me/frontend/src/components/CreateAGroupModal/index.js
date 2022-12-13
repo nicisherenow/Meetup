@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
+import { createAGroup } from "../../store/groups";
 import './CreateAGroup.css';
 
 function CreateAGroupModal() {
@@ -9,7 +10,7 @@ function CreateAGroupModal() {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [type, setType] = useState("In person");
-  const [isPrivate, setIsPrivate] = useState("false");
+  const [isPrivate, setIsPrivate] = useState(true);
   const [city, setCity] = useState("");
   const [state, setState] = useState("")
   const [errors, setErrors] = useState([]);
@@ -18,7 +19,7 @@ function CreateAGroupModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
-      return dispatch(sessionActions.signup({ name, about, type, isPrivate, city, state }))
+      return dispatch(createAGroup({ name, about, type, isPrivate, city, state }))
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
@@ -28,7 +29,7 @@ function CreateAGroupModal() {
 
   return (
     <div id='createAGroupForm'>
-      <h1 id='groupH1'>Sign Up</h1>
+      <h1 id='groupH1'>Create a Group</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -51,11 +52,12 @@ function CreateAGroupModal() {
             required
           />
         </label>
+        <span className="radio-buttons">
         <label>
           Online
           <input
             type="radio"
-            value={type}
+            value='Online'
             onChange={(e) => setType(e.target.value)}
             required
             checked={type === 'Online' ? true : false}
@@ -65,22 +67,25 @@ function CreateAGroupModal() {
           In person
           <input
             type="radio"
-            value={type}
+            value='In person'
             onChange={(e) => setType(e.target.value)}
             required
             checked={type === "In person" ? true : false}
-          />
+            />
         </label>
+            </span>
+        <span className="radio-buttons">
         <label>
           Private
           <input
-            type="checkbox"
-            value={isPrivate}
+            type="radio"
+            value={true}
             onChange={(e) => setIsPrivate(e.target.value)}
             required
-            checked={isPrivate === true ? true : false}
+            checked={isPrivate == true ? true : false}
           />
         </label>
+            </span>
         <label>
           City
           <input

@@ -23,6 +23,21 @@ export const createGroup = (group) => {
     group
   }
 }
+
+export const createAGroup = (group) => async dispatch => {
+  const response = await csrfFetch('/api/groups', {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(group),
+    })
+
+    if (response.ok) {
+      const group = await response.json()
+      dispatch(createGroup(group))
+      return group
+    }
+}
+
 export const fetchGroups = () => async dispatch => {
   const response = await csrfFetch('/api/groups');
   const groups = await response.json();
