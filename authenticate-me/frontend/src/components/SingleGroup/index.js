@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchGroupById, deleteAGroup } from "../../store/groups";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import EditAGroupModal from "../EditAGroupModal";
 import './SingleGroup.css'
 
 const SingleGroup = () => {
@@ -22,6 +24,8 @@ const SingleGroup = () => {
     history.push('/groups')
   }
 
+
+
   if(!group) return null
   return (
     <>
@@ -41,8 +45,12 @@ const SingleGroup = () => {
         <p>{group.about}</p>
       </div>
       <div className="delete-edit">
-        <button onClick={handleDeleteClick}>Delete group</button>
-        <button>Edit group</button>
+        <span id='delete-group-button' onClick={handleDeleteClick}>Delete group</span>
+        <span id='createAGroupModal'>
+          <OpenModalMenuItem
+              itemText="Edit this Group"
+              modalComponent={<EditAGroupModal />}
+            /></span>
       </div>
     </>
   )

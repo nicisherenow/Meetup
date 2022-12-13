@@ -18,7 +18,7 @@ const GroupsPage = () => {
   return (
     <div id='groups-container'>
       <p>Got a fun idea for a new Group?
-        <span id='signupModal'>
+        <span id='createAGroupModal'>
           <OpenModalMenuItem
               itemText="Create a Group"
               modalComponent={<CreateAGroupModal />}

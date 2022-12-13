@@ -22,3 +22,15 @@
   margin-left: 30%;
   margin-right: 30%;
 }
+
+.delete-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+#delete-group-button {
+  cursor: pointer;
+  color: darkcyan;
+}

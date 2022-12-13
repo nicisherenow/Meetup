@@ -1,4 +1,4 @@
-#createAGroupForm {
+#editAGroupForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +18,7 @@ form {
   align-items: center;
 }
 
-#createGroup {
+#editGroup {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,7 @@ form {
   width: fit-content;
 }
 
-#signupbutton:hover {
+#editGroup:hover {
   background-color: rgb(251, 117, 94);
 }
 
@@ -66,7 +66,7 @@ input:hover {
   border: 1px darkcyan solid;
 }
 
-#createAGroupModal {
+#editAGroupModal {
   display: flex;
   align-items: center;
   justify-content: center;
