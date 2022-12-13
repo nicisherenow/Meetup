@@ -18,7 +18,6 @@ const SingleGroup = () => {
 
   const handleDeleteClick = (e) => {
     e.preventDefault()
-    console.log('i clicked it ======', group)
     dispatch(deleteAGroup(group))
     history.push('/groups')
   }

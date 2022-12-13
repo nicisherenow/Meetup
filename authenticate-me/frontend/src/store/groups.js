@@ -25,9 +25,10 @@ export const createGroup = (group) => {
   }
 }
 
-export const deleteGroup = (group) => {
+export const deleteGroup = (message, group) => {
   return {
     type: DELETE_GROUP,
+    message,
     group
   }
 }
@@ -38,8 +39,8 @@ export const deleteAGroup = (payload) => async dispatch => {
   })
 
   if (response.ok) {
-    const group = await response.json()
-    dispatch(deleteGroup(group))
+    const message = await response.json()
+    dispatch(deleteGroup(message, payload))
   }
 }
 
@@ -80,18 +81,18 @@ const groupsReducer = (state = initialState, action) => {
       Object.values(action.groups.Groups).forEach(group => { newState.allGroups[group.id] = group})
       return newState
     case LOAD_GROUP:
-      newState = { ...state,
-      singleGroup: {...action.group} }
+      newState = { ...state}
+      newState.singleGroup = action.group
       return newState
     case CREATE_GROUP:
-      newState = { ...state,
-      allGroups: {...state.allGroups, [action.group.id]: action.group},
-      singleGroup: {...state.singleGroup, ...action.group}}
+      newState = { ...state}
+      newState.allGroups[action.group.id] = action.group
+      newState.singleGroup = action.group
       return newState
     case DELETE_GROUP:
-      newState = { ...state,
-      allGroups: { ...state.allGroups, [action.group.id]: delete action.group },
-      singleGroup:  delete action.group}
+      newState = { ...state}
+      delete newState.allGroups[action.group.id]
+      delete newState.singleGroup[action.group.id]
       return newState
     default:
       return state

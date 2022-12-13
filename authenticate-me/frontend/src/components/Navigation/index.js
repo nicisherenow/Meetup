@@ -9,7 +9,7 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul>
+    <ul id="nav-ul">
       <li id='homeButton'>
         <NavLink exact to={sessionUser ? "/groups" : '/'}><img className='home-logo' src={require('../../Images/logo.png')} alt={'home-logo'}/></NavLink>
       </li>
