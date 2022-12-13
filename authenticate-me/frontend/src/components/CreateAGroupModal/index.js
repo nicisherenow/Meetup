@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createAGroup } from "../../store/groups";
 import './CreateAGroup.css';
 
 function CreateAGroupModal() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -19,6 +21,7 @@ function CreateAGroupModal() {
     e.preventDefault();
       setErrors([]);
       return dispatch(createAGroup({ name, about, type, private: isPrivate, city, state }))
+        .then((data) => history.push(`/groups/${data.id}`))
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();

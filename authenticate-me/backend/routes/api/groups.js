@@ -99,7 +99,7 @@ router.get('/', async (req, res) => {
         const members = await Membership.count({
           where: {groupId: group.id}
         })
-        group.numMembers = members;
+        group.numMembers = members + 1;
       }
     }
     await numMembers()
@@ -323,7 +323,7 @@ router.get('/:groupId', async (req, res) => {
         }
       }
     })
-    group.numMembers = total
+    group.numMembers = total + 1
   }
   await members()
   res.json({

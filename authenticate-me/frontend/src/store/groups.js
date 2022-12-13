@@ -36,6 +36,7 @@ export const createAGroup = (payload) => async dispatch => {
       dispatch(createGroup(group))
       return group
     } else {
+
     }
 }
 
