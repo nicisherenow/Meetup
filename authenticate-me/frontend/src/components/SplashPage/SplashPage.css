@@ -1,19 +1,30 @@
-#home-splash {
-  background: url("../../Images/home-background.png") no-repeat center/cover;
+body {
+  background-image: url("../../Images/home-background.png");
   display: block;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-#content-container {
+
+.splash-container {
   display: flex;
   flex-wrap: wrap;
-  width: 600px;
+  width: fit-content;
   height: auto;
-  margin-left: 20%;
-  margin-right: 20%;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#splash-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
 }
 
 #group-image {
   width: 300px;
   height: 240px;
+  background-color: rgba(0,0,0,0);
 }

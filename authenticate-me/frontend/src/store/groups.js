@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_GROUPS = 'groups/loadGroups';
 const LOAD_GROUP = 'group/loadGroup';
 const CREATE_GROUP = 'group/createGroup';
+const DELETE_GROUP = 'group/deleteGroup';
 
 export const loadGroups = (groups) => {
   return {
@@ -21,6 +22,24 @@ export const createGroup = (group) => {
   return {
     type: CREATE_GROUP,
     group
+  }
+}
+
+export const deleteGroup = (group) => {
+  return {
+    type: DELETE_GROUP,
+    group
+  }
+}
+
+export const deleteAGroup = (payload) => async dispatch => {
+  const response = await csrfFetch(`/api/groups/${payload.id}`, {
+    method: "DELETE",
+  })
+
+  if (response.ok) {
+    const group = await response.json()
+    dispatch(deleteGroup(group))
   }
 }
 
@@ -68,6 +87,11 @@ const groupsReducer = (state = initialState, action) => {
       newState = { ...state,
       allGroups: {...state.allGroups, [action.group.id]: action.group},
       singleGroup: {...state.singleGroup, ...action.group}}
+      return newState
+    case DELETE_GROUP:
+      newState = { ...state,
+      allGroups: { ...state.allGroups, [action.group.id]: delete action.group },
+      singleGroup:  delete action.group}
       return newState
     default:
       return state

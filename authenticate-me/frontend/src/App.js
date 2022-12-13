@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SplashPage from "./components/SplashPage/SplashPage";
+import SplashPage from "./components/SplashPage";
 import GroupsPage from "./components/GroupsPage";
 import SingleGroup from "./components/SingleGroup";
 

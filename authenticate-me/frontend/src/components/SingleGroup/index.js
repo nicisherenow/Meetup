@@ -1,16 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
-import { fetchGroupById } from "../../store/groups";
+import { fetchGroupById, deleteAGroup } from "../../store/groups";
 import './SingleGroup.css'
 
 const SingleGroup = () => {
-  const dispatch = useDispatch()
-  const { groupId } = useParams()
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { groupId } = useParams();
+
+
   useEffect(()=> {
     dispatch(fetchGroupById(groupId))
   }, [dispatch, groupId])
+
   const group = useSelector(state => state.groupState.singleGroup)
+
+  const handleDeleteClick = (e) => {
+    e.preventDefault()
+    console.log('i clicked it ======', group)
+    dispatch(deleteAGroup(group))
+    history.push('/groups')
+  }
 
   if(!group) return null
   return (
@@ -29,6 +40,10 @@ const SingleGroup = () => {
       <div className="about-section">
         <h3>What we're about</h3>
         <p>{group.about}</p>
+      </div>
+      <div className="delete-edit">
+        <button onClick={handleDeleteClick}>Delete group</button>
+        <button>Edit group</button>
       </div>
     </>
   )
