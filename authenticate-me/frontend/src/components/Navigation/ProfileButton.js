@@ -56,8 +56,8 @@ function ProfileButton({ user }) {
         {user ? (
           <div id='loggedIn'>
             <div id='group-event-navigation-on-profile-button'>
-              <NavLink to={'/groups'}>Groups</NavLink>
-              <NavLink to={'/events'}>Events</NavLink>
+              <NavLink className={'stop-underline'} to={'/groups'}>Groups</NavLink>
+              <NavLink className={'stop-underline'} to={'/events'}>Events</NavLink>
             </div>
             <li className='userinfo'>{user.firstName} {user.lastName}</li>
             <li className='userinfo'>{user.email}</li>
@@ -68,8 +68,8 @@ function ProfileButton({ user }) {
         ) : (
           <div id='notLoggedIn'>
               <div id='group-event-navigation-on-profile-button'>
-                <NavLink to={'/groups'}>Groups</NavLink>
-                <NavLink to={'/events'}>Events</NavLink>
+                <NavLink className={'stop-underline'} to={'/groups'}>Groups</NavLink>
+                <NavLink className={'stop-underline'} to={'/events'}>Events</NavLink>
               </div>
             <span id='loginModalButton'>
               <OpenModalMenuItem

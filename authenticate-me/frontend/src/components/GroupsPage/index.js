@@ -24,8 +24,8 @@ const GroupsPage = () => {
               modalComponent={<CreateAGroupModal />}
             /></span></p>
       <div id='group-event-navigation-container'>
-        <NavLink to={'/groups'}>Groups</NavLink>
-        <NavLink to={'/events'}>Events</NavLink>
+        <NavLink className={'stop-underline'} id={'events-groups'} to={'/groups'}>Groups</NavLink>
+        <NavLink className={'stop-underline'} id={'events-groups'} to={'/events'}>Events</NavLink>
       </div>
       {groups.map(group => (
           <NavLink to={`/groups/${group.id}`} id={`group-${group.id}`} className='groups'>

@@ -17,8 +17,8 @@ const EventsPage = () => {
   return (
     <div id='event-container'>
       <div id='group-event-navigation-container'>
-        <NavLink to={'/groups'}>Groups</NavLink>
-        <NavLink to={'/events'}>Events</NavLink>
+        <NavLink className={'stop-underline'} id={'events-groups'} to={'/groups'}>Groups</NavLink>
+        <NavLink className={'stop-underline'} id={'events-groups'} to={'/events'}>Events</NavLink>
       </div>
       {events.map(event => (
           <NavLink to={`/groups/${event.id}`} id={`event-${event.id}`} className='events'>

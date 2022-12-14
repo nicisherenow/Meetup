@@ -21,6 +21,7 @@
   box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
   padding: 10px;
   border-radius: .2rem;
+  background-color: white;
 }
 
 #loginModalButton {
@@ -37,10 +38,20 @@
   color: darkcyan;
 }
 
+.stop-underline {
+  text-decoration: none;
+  color: black;
+}
+
+.stop-underline:hover {
+  color: darkcyan;
+}
+
 #loggedIn {
   align-items: center;
   justify-content: center;
   position: absolute;
+  background-color: white;
   top: 80px;
   right: 10px;
   border: 1px gray solid;
