@@ -32,7 +32,7 @@ const SingleGroup = () => {
     <>
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
-        <img src={group.GroupImages?.length ? group.GroupImages[0]?.url : "Placeholder"} alt='SingleGroupTime' id="SingleGroupPic" />
+        <img src={group.GroupImages?.length ? group.GroupImages[0]?.url : 'https://picsum.photos/600/337'} alt='SingleGroupTime' id="SingleGroupPic" />
       </div>
       <div className="info-container">
       <h1>{group.name}</h1>

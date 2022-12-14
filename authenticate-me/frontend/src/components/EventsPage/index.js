@@ -30,7 +30,7 @@ const EventsPage = () => {
       {events.map(event => (
           <NavLink to={`/events/${event.id}`} id={`event-${event.id}`} className='events'>
               <div id='event-pic-container'>
-                <img src={event.previewImage} alt='groupTime' className='event-pics'/>
+                <img src={event.previewImage === 'no preview image found' ? 'https://picsum.photos/178/100' : event.previewImage} alt='groupTime' className='event-pics'/>
               </div>
               <div id='event-details'>
                 <h4>{event.startDate}</h4>

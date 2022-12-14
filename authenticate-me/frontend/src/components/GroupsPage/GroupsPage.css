@@ -21,8 +21,8 @@
   border-radius: .3rem;
 }
 .group-pic-container {
-  width: 151px;
-  height: 83px;
+  width: 178px;
+  height: 100px;
   background-color: lightgrey;
   border-radius: .3rem;
   display: flex;
@@ -38,6 +38,6 @@
 #group-event-navigation-container {
   display: flex;
   gap: 10px;
-  text-decoration: none;
   margin-bottom: 10px;
+  justify-content: flex-start;
 }

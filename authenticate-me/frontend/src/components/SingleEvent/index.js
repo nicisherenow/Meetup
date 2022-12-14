@@ -19,7 +19,7 @@ const SingleEvent = () => {
   return (
     <div className='single-event-content-container'>
       <h1>{event.name}</h1>
-      <img src={event.EventImages?.length ? event.EventImages[0]?.url : "Placeholder"} id='single-event-image' alt='SingleEventTime' />
+      <img src={event.EventImages?.length ? event.EventImages[0]?.url : 'https://picsum.photos/600/337'} id='single-event-image' alt='SingleEventTime' />
       <h2>Details</h2>
       <p>{event.description}</p>
     </div>
