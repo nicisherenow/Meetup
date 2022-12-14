@@ -17,6 +17,9 @@
   text-decoration: none;
 }
 
+.group-pics {
+  border-radius: .3rem;
+}
 .group-pic-container {
   width: 151px;
   height: 83px;

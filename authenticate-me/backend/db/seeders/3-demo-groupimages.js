@@ -11,18 +11,18 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: 'samplepic.png',
+        url: 'https://picsum.photos/151/83',
         preview: true,
       },
       {
         groupId: 2,
-        url: 'samplepic1.png',
-        preview: false,
+        url: 'https://picsum.photos/151/83',
+        preview: true,
       },
       {
         groupId: 3,
-        url: 'samplepic2.png',
-        preview: false,
+        url: 'https://picsum.photos/151/83',
+        preview: true,
       },
     ], {});
   },

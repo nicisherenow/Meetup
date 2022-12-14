@@ -12,17 +12,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'randompicture.png',
+        url: 'https://picsum.photos/178/100',
         preview: true,
       },
       {
         eventId: 2,
-        url: 'randompicture1.png',
-        preview: false,
+        url: 'https://picsum.photos/178/100',
+        preview: true,
       },
       {
         eventId: 3,
-        url: 'randompicture2.png',
+        url: 'https://picsum.photos/178/100',
         preview: true,
       },
     ], {});

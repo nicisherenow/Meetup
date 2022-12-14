@@ -18,6 +18,10 @@
   margin-right: auto;
 }
 
+.event-pics {
+  border-radius: .3rem;
+}
+
 #event-pic-container {
   width: 178px;
   height: 100px;

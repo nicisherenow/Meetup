@@ -31,7 +31,7 @@ const SingleGroup = () => {
     <>
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
-        <div>Placeholder</div>
+        <img src={group.GroupImages[0]?.url} alt='SingleGroupTime' id="SingleGroupPic" />
       </div>
       <div className="info-container">
       <h1>{group.name}</h1>

@@ -14,7 +14,7 @@ module.exports = {
       {
         venueId: 1,
         groupId: 1,
-        name: 'member',
+        name: 'The Thing We Do As A Group',
         description: 'almost the same as the other one, but a little different, but mostly same',
         type: 'In person',
         capacity: 10,
@@ -25,7 +25,7 @@ module.exports = {
       {
         venueId: 2,
         groupId: 2,
-        name: 'waitlist',
+        name: 'Gathering For Fun',
         description: 'almost the same as the other one, but a little different, but mostly same',
         type: 'Online',
         capacity: 10,
@@ -36,7 +36,7 @@ module.exports = {
       {
         venueId: 3,
         groupId: 3,
-        name: 'pending',
+        name: 'Here We Go Again',
         description: 'almost the same as the other one, but a little different, but mostly same',
         type: 'In person',
         capacity: 10,
