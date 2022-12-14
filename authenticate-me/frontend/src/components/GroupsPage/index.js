@@ -23,6 +23,10 @@ const GroupsPage = () => {
               itemText="Create a Group"
               modalComponent={<CreateAGroupModal />}
             /></span></p>
+      <div id='group-event-navigation-container'>
+        <NavLink to={'/groups'}>Groups</NavLink>
+        <NavLink to={'/events'}>Events</NavLink>
+      </div>
       {groups.map(group => (
           <NavLink to={`/groups/${group.id}`} id={`group-${group.id}`} className='groups'>
             <div className='group-pic-container'>
