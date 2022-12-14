@@ -78,7 +78,15 @@ li {
   cursor: pointer;
 }
 
-
+#group-event-navigation-on-profile-button {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  gap: 3px;
+  margin-bottom: 12px;
+  border-bottom: 1px lightgray solid;
+  padding-bottom: 12px;
+}
 
 #nav-ul {
   display: flex;
