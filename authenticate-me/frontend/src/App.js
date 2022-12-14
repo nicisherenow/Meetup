@@ -7,6 +7,7 @@ import SplashPage from "./components/SplashPage";
 import GroupsPage from "./components/GroupsPage";
 import SingleGroup from "./components/SingleGroup";
 import EventsPage from "./components/EventsPage";
+import SingleEvent from "./components/SingleEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,8 +30,11 @@ function App() {
           <Route path={'/groups/:groupId'}>
             <SingleGroup />
           </Route>
-          <Route path={'/events'}>
+          <Route exact path={'/events'}>
             <EventsPage />
+          </Route>
+          <Route path={`/events/:eventId`}>
+            <SingleEvent />
           </Route>
         </Switch>
       )}

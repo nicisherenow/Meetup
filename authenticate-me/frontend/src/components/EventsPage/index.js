@@ -21,8 +21,7 @@ const EventsPage = () => {
         <NavLink className={'stop-underline'} id={'events-groups'} to={'/events'}>Events</NavLink>
       </div>
       {events.map(event => (
-          <NavLink to={`/groups/${event.id}`} id={`event-${event.id}`} className='events'>
-            <div id='event-alignment'>
+          <NavLink to={`/events/${event.id}`} id={`event-${event.id}`} className='events'>
               <div id='event-pic-container'>
                 <div>Placeholder</div>
               </div>
@@ -32,7 +31,6 @@ const EventsPage = () => {
                 <p>{event.Group?.name} • {event.Venue?.city}, {event.Venue?.state}</p>
                 <p>{event.numAttending} {event.numAttending > 1 || event.numAttending === 0 ? 'attendees' : 'attendee'}</p>
               </div>
-            </div>
           </NavLink>
       ))}
 

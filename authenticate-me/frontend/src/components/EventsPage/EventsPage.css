@@ -24,7 +24,7 @@
   background-color: lightgrey;
   border-radius: .3rem;
   display: flex;
-  align-self: flex-end;
+  align-self: flex-start;
   margin-top: 20px;
 }
 

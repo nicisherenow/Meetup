@@ -1,0 +1,12 @@
+.single-event-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#single-event-image {
+  width: 661.5px;
+  height: 370.44px;
+  background-color: lightgray;
+}
