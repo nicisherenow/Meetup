@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_EVENTS = 'events/loadEvents';
 const LOAD_EVENT = 'event/loadEvent';
+const CREATE_EVENT = 'event/createEvent'
 
 export const loadEvents = (events) => {
   return {
@@ -13,6 +14,13 @@ export const loadEvents = (events) => {
 export const loadEvent = (event) => {
   return {
     type: LOAD_EVENT,
+    event
+  }
+}
+
+export const createEvent = (event) => {
+  return {
+    type: CREATE_EVENT,
     event
   }
 }
@@ -29,6 +37,20 @@ export const fetchEventById = (eventId) => async dispatch => {
   dispatch(loadEvent(event))
 }
 
+export const createAnEvent = (group, payload) => async dispatch => {
+  const response = await csrfFetch(`/api/groups/${group.id}/events`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  })
+
+  if (response.ok) {
+    const event = await response.json()
+    dispatch(createEvent(event))
+    return event
+  }
+}
+
 const initialState = { allEvents: {}, singleEvent: {} };
 
 const eventsReducer = (state = initialState, action) => {
@@ -40,6 +62,11 @@ const eventsReducer = (state = initialState, action) => {
       return newState
     case LOAD_EVENT:
       newState = { ...state }
+      newState.singleEvent = action.event
+      return newState
+    case CREATE_EVENT:
+      newState = { ...state }
+      newState.allEvents[action.event.id] = action.event
       newState.singleEvent = action.event
       return newState
     default:

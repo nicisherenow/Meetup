@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchGroupById, deleteAGroup } from "../../store/groups";
+import CreateAnEventModal from "../CreateAnEventModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditAGroupModal from "../EditAGroupModal";
 import './SingleGroup.css'
@@ -31,7 +32,7 @@ const SingleGroup = () => {
     <>
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
-        <img src={group.GroupImages[0]?.url} alt='SingleGroupTime' id="SingleGroupPic" />
+        <img src={group.GroupImages?.length ? group.GroupImages[0]?.url : "Placeholder"} alt='SingleGroupTime' id="SingleGroupPic" />
       </div>
       <div className="info-container">
       <h1>{group.name}</h1>
@@ -50,6 +51,11 @@ const SingleGroup = () => {
           <OpenModalMenuItem
               itemText="Edit this Group"
               modalComponent={<EditAGroupModal />}
+            /></span>
+            <span id='createAGroupModal'>
+          <OpenModalMenuItem
+              itemText="Create an Event"
+              modalComponent={<CreateAnEventModal />}
             /></span>
       </div>
     </>

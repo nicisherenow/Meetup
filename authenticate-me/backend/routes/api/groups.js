@@ -192,7 +192,7 @@ router.post('/:groupId/events',
   if(isGroup.organizerId === user.id || member) {
     const event = await Event.create({
       groupId: +req.params.groupId,
-      venueId: venueId,
+      venueId: venueId || null,
       name: name,
       type: type,
       capacity: capacity,
