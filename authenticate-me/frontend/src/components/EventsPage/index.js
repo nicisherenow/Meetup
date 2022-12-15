@@ -35,7 +35,7 @@ const EventsPage = () => {
               <div id='event-details'>
                 <h4>{event.startDate}</h4>
                 <h3>{event.name}</h3>
-                <p>{event.Group?.name} • {event.Venue?.city}, {event.Venue?.state}</p>
+                <p>{event.Group?.name} • {event.Group?.city}, {event.Group?.state}</p>
                 <p>{event.numAttending} {event.numAttending > 1 || event.numAttending === 0 ? 'attendees' : 'attendee'}</p>
               </div>
           </NavLink>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchGroups } from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
@@ -9,7 +9,9 @@ import { NavLink } from 'react-router-dom'
 
 const GroupsPage = () => {
   const dispatch = useDispatch()
+  const [active, setActive] = useState(false)
   const groups = useSelector(state => Object.values(state.groupState.allGroups))
+
   useEffect(() => {
     dispatch(fetchGroups())
   }, [dispatch])
