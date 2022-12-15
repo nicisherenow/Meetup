@@ -1,0 +1,39 @@
+#footer-container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  margin: 0 auto;
+  position: absolute;
+  background-color: black;
+  bottom: 0px;
+  color: white;
+}
+
+#footer-create-group:hover {
+  color: darkcyan;
+  cursor: pointer;
+}
+
+.footer-groups-events {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: white;
+}
+
+.footer-groups-events:hover {
+  cursor: pointer;
+  color: darkcyan;
+}
+
+#profile-div {
+  width: 33%;
+}
+
+#discover-div {
+  width: 33%;
+}
+
+#meet-sup-div {
+  width: 33%
+}
