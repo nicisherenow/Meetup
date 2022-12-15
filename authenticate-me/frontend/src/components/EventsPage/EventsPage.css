@@ -1,8 +1,13 @@
+
+
 #event-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .events {
