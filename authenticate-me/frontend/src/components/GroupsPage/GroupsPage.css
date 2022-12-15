@@ -1,3 +1,7 @@
+#events-groups {
+  display: flex;
+  flex-direction: column;
+}
 
 #groups-container {
   display: flex;

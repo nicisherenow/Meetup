@@ -18,7 +18,7 @@ function Navigation({ isLoaded }){
           <ProfileButton user={sessionUser} />
         </li>
       )}
-      
+
     </ul>
   );
 }
