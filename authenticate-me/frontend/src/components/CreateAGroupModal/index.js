@@ -14,13 +14,14 @@ function CreateAGroupModal() {
   const [isPrivate, setIsPrivate] = useState("false");
   const [city, setCity] = useState("");
   const [state, setState] = useState("")
+  const [previewImage, setPreviewImage] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
-      return dispatch(createAGroup({ name, about, type, private: isPrivate, city, state }))
+      return dispatch(createAGroup({ name, about, type, private: isPrivate, city, state }, previewImage))
         .then((data) => history.push(`/groups/${data.id}`))
         .then(closeModal)
         .catch(async (res) => {
@@ -70,6 +71,15 @@ function CreateAGroupModal() {
             value={state}
             onChange={(e) => setState(e.target.value)}
             required
+          />
+        </label>
+        <label>
+          Preview Image
+          <input
+          type='text'
+          value={previewImage}
+          onChange={(e) => setPreviewImage(e.target.value)}
+          required
           />
         </label>
         <span className="radio-buttons">

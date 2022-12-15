@@ -9,6 +9,7 @@
   border: black;
   border-radius: 15px;
   margin-bottom: 15px;
+  overflow-y: visible;
 }
 
 form {
@@ -41,7 +42,7 @@ form {
   width: fit-content;
 }
 
-#signupbutton:hover {
+#createGroup:hover {
   background-color: rgb(251, 117, 94);
 }
 

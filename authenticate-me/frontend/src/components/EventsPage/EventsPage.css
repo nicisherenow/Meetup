@@ -20,11 +20,11 @@
 
 .event-pics {
   border-radius: .3rem;
+  width: 178px;
+  height: 100px;
 }
 
 #event-pic-container {
-  width: 178px;
-  height: 100px;
   background-color: lightgrey;
   border-radius: .3rem;
   display: flex;

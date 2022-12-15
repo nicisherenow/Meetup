@@ -31,7 +31,10 @@ form {
   color: white;
   cursor: pointer;
   margin-top: 20px;
+  overflow-y: auto;
 }
+
+
 
 .radio-buttons {
   display: flex;
@@ -41,7 +44,7 @@ form {
   width: fit-content;
 }
 
-#signupbutton:hover {
+#createEvent:hover {
   background-color: rgb(251, 117, 94);
 }
 

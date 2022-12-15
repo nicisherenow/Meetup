@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { editAGroup } from "../../store/groups";
+import { editAGroup, fetchGroupById } from "../../store/groups";
 import './EditAGroupModal.css';
 
 function EditAGroupModal() {
@@ -24,8 +24,8 @@ function EditAGroupModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
-      return dispatch(editAGroup({ id, name, about, type, private: isPrivate, city, state }))
-        .then((data) => history.push(`/groups/${data.id}`))
+      return dispatch(editAGroup({ id, name, about, type, private: isPrivate, city, state}))
+        .then((data) => dispatch(fetchGroupById(data.id)))
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();

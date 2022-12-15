@@ -28,7 +28,7 @@ const GroupsPage = () => {
         <NavLink className={'stop-underline'} id={'events-groups'} to={'/events'}>Events</NavLink>
       </div>
       {groups.map(group => (
-          <NavLink to={`/groups/${group.id}`} id={`group-${group.id}`} className='groups'>
+          <NavLink to={`/groups/${group.id}`} key={group.id} id={`group-${group.id}`} className='groups'>
             <div className='group-pic-container'>
               <img src={group.previewImage === 'no preview image' ? 'https://picsum.photos/178/100' : group.previewImage } alt='groupTime' className='group-pics'/>
             </div>

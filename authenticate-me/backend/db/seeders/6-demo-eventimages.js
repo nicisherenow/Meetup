@@ -17,12 +17,12 @@ module.exports = {
       },
       {
         eventId: 2,
-        url: 'https://picsum.photos/178/100',
+        url: 'https://picsum.photos/178/102',
         preview: true,
       },
       {
         eventId: 3,
-        url: 'https://picsum.photos/178/100',
+        url: 'https://picsum.photos/178/101',
         preview: true,
       },
     ], {});

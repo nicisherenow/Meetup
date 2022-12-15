@@ -19,10 +19,11 @@ export const loadGroup = (group) => {
   }
 }
 
-export const createGroup = (group) => {
+export const createGroup = (group, previewImage) => {
   return {
     type: CREATE_GROUP,
-    group
+    group,
+    previewImage
   }
 }
 
@@ -66,16 +67,23 @@ export const deleteAGroup = (payload) => async dispatch => {
   }
 }
 
-export const createAGroup = (payload) => async dispatch => {
+export const createAGroup = (payload, imagePayload) => async dispatch => {
   const response = await csrfFetch('/api/groups', {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(payload),
     })
+  const group = await response.json()
 
-    const group = await response.json()
+  const imageResponse = await csrfFetch(`/api/groups/${group.id}/images`, {
+    method: "POST",
+    headers: {"Content-Type": 'application/json'},
+    body: JSON.stringify({url: imagePayload, groupId: group.id, preview: true})
+  })
+
+  const previewImage = await imageResponse.json()
     if (response.ok) {
-      dispatch(createGroup(group))
+      dispatch(createGroup(group, previewImage))
       return group
     } else {
 
@@ -109,17 +117,15 @@ const groupsReducer = (state = initialState, action) => {
     case CREATE_GROUP:
       newState = { ...state}
       newState.allGroups[action.group.id] = action.group
-      newState.singleGroup = action.group
+      newState.allGroups[action.group.id].previewImage = action.previewImage.url
       return newState
     case DELETE_GROUP:
       newState = { ...state}
       delete newState.allGroups[action.group.id]
-      delete newState.singleGroup[action.group.id]
       return newState
     case EDIT_GROUP:
       newState = { ...state }
       newState.allGroups[action.group.id] = action.group
-      newState.singleGroup = action.group
       return newState
     default:
       return state
