@@ -116,7 +116,7 @@ function CreateAnEventModal() {
             />
         </label>
             </span>
-        <button id='createEvent' type="submit">Create Group</button>
+        <button id='createEvent' type="submit">Create Event</button>
       </form>
     </div>
   );

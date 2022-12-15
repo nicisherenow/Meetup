@@ -36,7 +36,15 @@
   gap: 30px;
 }
 
-#delete-group-button {
+#delete-group-button:hover {
   cursor: pointer;
   color: darkcyan;
+}
+
+#createAGroupModal {
+  color: black
+}
+#createAGroupModal:hover {
+  color: darkcyan;
+
 }

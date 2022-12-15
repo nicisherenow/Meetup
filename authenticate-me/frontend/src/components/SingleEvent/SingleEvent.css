@@ -10,3 +10,8 @@
   height: 370.44px;
   background-color: lightgray;
 }
+
+#delete-event-button {
+  cursor: pointer;
+  color: darkcyan;
+}
