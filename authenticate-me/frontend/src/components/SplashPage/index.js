@@ -1,5 +1,4 @@
 import './SplashPage.css'
-import Footer from '../Footer';
 
 const SplashPage = () => {
   return (
@@ -15,7 +14,6 @@ const SplashPage = () => {
         <img id='group-image' src={require('../../Images/group-image.jpg')} alt='group'/>
       </div>
       </div>
-      <Footer />
     </div>
   )
 }

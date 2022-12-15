@@ -47,6 +47,8 @@ const Footer = () => {
 
   return (
     <div id='footer-container'>
+      <div id='footer-border-top'>
+
       {user ? (
         <div id='profile-div'>
           <h4>Your Account</h4>
@@ -74,16 +76,16 @@ const Footer = () => {
               </span>
             </div>
           )
-      }
+        }
       { user ? (
-      <div id='discover-div'>
+        <div id='discover-div'>
         <h4>Discover</h4>
         <span id={'footer-create-group'}>
           <OpenModalMenuItem
               className={'footer-groups-events'}
               itemText="Create a Group"
               modalComponent={<CreateAGroupModal />}
-            /></span>
+              /></span>
         <NavLink className={'footer-groups-events'} to={'/groups'}>Groups</NavLink>
         <NavLink className={'footer-groups-events'} to={'/events'}>Events</NavLink>
 
@@ -104,6 +106,7 @@ const Footer = () => {
         <NavLink className={'footer-groups-events'} to={'/about'}>About</NavLink>
       </div>
     </div>
+      </div>
   )
 }
 

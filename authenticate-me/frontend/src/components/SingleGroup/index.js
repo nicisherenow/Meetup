@@ -11,11 +11,10 @@ const SingleGroup = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { groupId } = useParams();
-  const sessionUser = useSelector(state => state.session.user)
+  const user = useSelector(state => state.session.user)
 
 
   const group = useSelector(state => state.groupState.singleGroup)
-  const org = useSelector(state => state.groupState.singleGroup.Organizer)
 
   useEffect(()=> {
     dispatch(fetchGroupById(groupId))
@@ -27,7 +26,6 @@ const SingleGroup = () => {
     history.push('/groups')
   }
 
-  if(!org) return null
   if(!group) return null
   return (
     <>
@@ -39,27 +37,30 @@ const SingleGroup = () => {
       <h1>{group.name}</h1>
       <p>{group.city}, {group.state}</p>
       <p>{group.numMembers} {group.numMembers > 1 || group.numMembers === 0 ? "members" : 'member'} • {group.private === false ? "Public" : "Private"} group</p>
-      <p>Organized by {org?.firstName}</p>
+      <p>Organized by {group.Organizer?.firstName}</p>
       </div>
     </div>
       <div className="about-section">
         <h3>What we're about</h3>
         <p>{group.about}</p>
       </div>
-      <div className="delete-edit">
+      {user?.id === group.Organizer?.id ? (
+
+        <div className="delete-edit">
 
         <span id='delete-group-button' onClick={handleDeleteClick}>Delete group</span>
         <span id='createAGroupModal'>
           <OpenModalMenuItem
               itemText="Edit this Group"
               modalComponent={<EditAGroupModal />}
-            /></span>
+              /></span>
             <span id='createAGroupModal'>
           <OpenModalMenuItem
               itemText="Create an Event"
               modalComponent={<CreateAnEventModal />}
-            /></span>
+              /></span>
       </div>
+              ) : (null)}
     </>
   )
 }

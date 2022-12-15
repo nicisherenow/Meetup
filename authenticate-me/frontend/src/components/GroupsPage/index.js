@@ -5,6 +5,7 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
 import CreateAGroupModal from '../CreateAGroupModal'
 import './GroupsPage.css'
 import { NavLink } from 'react-router-dom'
+import Footer from '../Footer'
 
 
 const GroupsPage = () => {
@@ -19,12 +20,6 @@ const GroupsPage = () => {
   if (!groups) return null
   return (
     <div id='groups-container'>
-      <p>Got a fun idea for a new Group?
-        <span id='createAGroupModal'>
-          <OpenModalMenuItem
-              itemText="Create a Group"
-              modalComponent={<CreateAGroupModal />}
-            /></span></p>
       <div id='group-event-navigation-container'>
         <NavLink className={'stop-underline'} id={'events-groups'} to={'/groups'}>Groups</NavLink>
         <NavLink className={'stop-underline'} id={'events-groups'} to={'/events'}>Events</NavLink>
@@ -42,7 +37,6 @@ const GroupsPage = () => {
             </div>
           </NavLink>
       ))}
-
     </div>
   )
 }

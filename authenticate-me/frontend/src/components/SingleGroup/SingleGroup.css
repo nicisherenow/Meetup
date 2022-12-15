@@ -1,32 +1,33 @@
 .single-group-container {
   display: flex;
   flex-direction: row;
-  margin-left: 20%;
-  margin-right: 20%;
   justify-content: center;
-  gap: 40px;
 }
 
 .pic-container {
-  width: 600px;
-  height: 337.5px;
+  width: 55%;
+  margin-left: 10%;
+  margin-right: 20px;
   border-radius: .4rem;
-  background-color: grey;
 }
 
 #SingleGroupPic {
-  width: 600px;
-  height: 337.5px;
+  width: 100%;
+  height: 100%;
   border-radius: .4rem;
+}
+.info-container {
+  width: 40%;
+  margin-right: 10%;
 }
 
 .about-section {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: 30%;
   margin-right: 30%;
+  height: 40vh;
 }
 
 .delete-edit {
@@ -34,6 +35,7 @@
   align-items: center;
   justify-content: center;
   gap: 30px;
+  margin-bottom: 10px;
 }
 
 #delete-group-button:hover {
