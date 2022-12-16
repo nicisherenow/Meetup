@@ -34,6 +34,7 @@ function CreateAnEventModal() {
 
   return (
     <div id='createAnEventForm'>
+
       <h1 id='groupH1'>Create an Event</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -73,7 +74,7 @@ function CreateAnEventModal() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
-          />
+            />
         </label>
         <label>
           Preview Image
@@ -92,7 +93,7 @@ function CreateAnEventModal() {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             required
-          />
+            />
         </label>
         <label>
           End Date

@@ -9,6 +9,12 @@
   border: black;
   border-radius: 15px;
   margin-bottom: 15px;
+  overflow-y: scroll;
+}
+
+#createContentContainer {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 form {
@@ -36,12 +42,9 @@ form {
 
 
 
-.radio-buttons {
+span.radio-buttons {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
+  flex-direction: row;
 }
 
 #createEvent:hover {
