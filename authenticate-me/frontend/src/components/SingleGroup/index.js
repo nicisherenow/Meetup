@@ -43,6 +43,7 @@ const SingleGroup = () => {
       <div className="about-section">
         <h3>What we're about</h3>
         <p>{group.about}</p>
+        <p>This is an "{group.type}" group.</p>
       </div>
       {user?.id === group.Organizer?.id ? (
 

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchEventById, deleteAnEvent } from '../../store/events';
 import './SingleEvent.css'
@@ -13,6 +13,7 @@ const SingleEvent = () => {
   const group = useSelector(state => state.groupState.allGroups[event.Group?.id])
   const user = useSelector(state => state.session.user)
 
+  
   useEffect(()=> {
     dispatch(fetchEventById(eventId))
   }, [dispatch])
@@ -22,16 +23,43 @@ const SingleEvent = () => {
     dispatch(deleteAnEvent(event))
     history.push('/events')
   }
-
+  if (!group) return null
   if (!event) return null
   return (
     <div className='single-event-content-container'>
-      <h1>{event.name}</h1>
+            <h1>{event?.name}</h1>
+      <div className='top-bit'>
+
       <div id='event-image-container'>
-      <img src={event.EventImages?.length ? event.EventImages[0]?.url : 'https://picsum.photos/600/337'} id='single-event-image' alt='SingleEventTime' />
+        <img src={event.EventImages?.length ? event.EventImages[0]?.url : 'https://picsum.photos/600/337'} id='single-event-image' alt='SingleEventTime' />
       </div>
-      <h2>Details</h2>
-      <p>{event.description}</p>
+
+      <div id='event-group-info'>
+        <div id='like-an-onion'>
+            <img src={group.previewImage} alt='grouptab' id='grouptab' />
+          <div id='group-info-for-event'>
+            <NavLink to={`/groups/${group.id}`} id='groupfromevent'>{group.name}</NavLink>
+            <p id='grey-group-text'>{group.private === true ? 'Private' : 'Public'} group</p>
+          </div>
+        </div>
+        {event.Venue? (
+          <div id='event-location-info'>
+            <p>{event.startDate} to {event.endDate}</p>
+            <p>{event.Venue?.name}</p>
+            <p>{event.Venue?.address} • {event.Venue?.city}, {event.Venue?.state}</p>
+          </div>
+          ) : ( null )
+        }
+        </div>
+      </div>
+        <h2>Details</h2>
+        <p>Description: {event.description}</p>
+        <p>Capacity: {event.capacity}</p>
+        <p>Price: {event.price}</p>
+        <p>Attendance: {event.numAttending} {event.numAttending > 1 || event.numAttending === 0 ? 'attendees' : 'attendee'}</p>
+
+
+
       {user?.id === group?.organizerId ? (
 
         <div className="delete-edit">

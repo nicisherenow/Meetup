@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react'
 import { fetchGroups } from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
-import CreateAGroupModal from '../CreateAGroupModal'
 import './GroupsPage.css'
 import { NavLink } from 'react-router-dom'
-import Footer from '../Footer'
 
 
 const GroupsPage = () => {
   const dispatch = useDispatch()
-  const [active, setActive] = useState(false)
   const groups = useSelector(state => Object.values(state.groupState.allGroups))
 
   useEffect(() => {
     dispatch(fetchGroups())
   }, [dispatch])
-
   if (!groups) return null
   return (
     <div id='groups-container'>

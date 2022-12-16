@@ -1,11 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllEvents, createAnEvent } from '../../store/events'
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
-import CreateAnEventModal from '../CreateAnEventModal'
+import { fetchAllEvents } from '../../store/events'
 import './EventsPage.css'
 import { NavLink } from 'react-router-dom'
-import Footer from '../Footer'
 
 
 const EventsPage = () => {
