@@ -8,6 +8,7 @@
   background-color: black;
   bottom: 0;
   color: white;
+  z-index: -10;
 }
 
 #footer-border-top {

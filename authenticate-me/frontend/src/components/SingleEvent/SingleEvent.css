@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 85vh;
-  margin: 0 10%;
 }
 #like-an-onion {
   display: flex;
@@ -10,6 +9,11 @@
   background-color: lightgray;
   padding: 5px;
   align-items: center;
+}
+
+#for-centering {
+  display: flex;
+  justify-content: center;
 }
 
 #grouptab {
@@ -53,7 +57,6 @@
 
 #event-group-info {
   display: flex;
-  margin-right: 10%;
   width: 40%;
   height: 400px;
   flex-direction: column;

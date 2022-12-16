@@ -8,6 +8,8 @@ import { NavLink } from 'react-router-dom'
 const EventsPage = () => {
   const dispatch = useDispatch()
   const events = useSelector(state => Object.values(state.eventState.allEvents))
+
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
   useEffect(() => {
     dispatch(fetchAllEvents())
   }, [dispatch])
@@ -25,7 +27,7 @@ const EventsPage = () => {
                 <img src={event.previewImage === 'no preview image found' ? 'https://picsum.photos/178/100' : event.previewImage} alt='groupTime' className='event-pics'/>
               </div>
               <div id='event-details'>
-                <h4>{event.startDate}</h4>
+                <h4>{new Date(event.startDate).toLocaleTimeString('en-US', options)}</h4>
                 <h3>{event.name}</h3>
                 <p>{event.Group?.name} • {event.Group?.city}, {event.Group?.state}</p>
                 <p>{event.numAttending} {event.numAttending > 1 || event.numAttending === 0 ? 'attendees' : 'attendee'}</p>

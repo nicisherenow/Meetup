@@ -76,28 +76,12 @@ function EditAGroupModal() {
             required
           />
         </label>
-        <span className="radio-buttons">
-        <label>
-          Online
-          <input
-            type="radio"
-            value='Online'
-            onChange={(e) => setType(e.target.value)}
-            required
-            checked={type === 'Online' ? true : false}
-          />
+        <label for={type}>Choose a type
+          <select name="type" id="type-select" onChange={(e) => setType(e.target.value)} required>
+              <option value={type}>Online</option>
+              <option value={type}>In person</option>
+          </select>
         </label>
-        <label>
-          In person
-          <input
-            type="radio"
-            value='In person'
-            onChange={(e) => setType(e.target.value)}
-            required
-            checked={type === "In person" ? true : false}
-            />
-        </label>
-            </span>
         <span className="radio-buttons">
         <label>
           Private

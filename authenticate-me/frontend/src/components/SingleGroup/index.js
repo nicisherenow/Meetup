@@ -29,6 +29,7 @@ const SingleGroup = () => {
   if(!group) return null
   return (
     <>
+
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
         <img src={group.GroupImages?.length ? group.GroupImages[0]?.url : 'https://picsum.photos/600/337'} alt='SingleGroupTime' id="SingleGroupPic" />

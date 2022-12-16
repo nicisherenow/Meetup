@@ -6,6 +6,20 @@
   font-size: 24px;
 }
 
+#navigation-create-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 40%;
+  color: darkcyan;
+  font-weight: bold;
+  width: fit-content;
+}
+
+#navigation-create-group:hover {
+  cursor: pointer;
+}
+
 #expandDropDown, #collapseDropDown {
   color: gray;
   cursor: pointer;
@@ -18,7 +32,7 @@
   position: absolute;
   top: 80px;
   right: 10px;
-  border: 1px gray solid;
+  border: 1px lightgray solid;
   box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
   padding: 10px;
   border-radius: .2rem;
@@ -56,8 +70,8 @@
   background-color: white;
   top: 80px;
   right: 10px;
-  border: 1px gray solid;
-  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  border: 1px lightgray solid;
+  box-shadow: 0 4px 7px rgba(128, 128, 128, .3);
   padding: 10px;
   border-radius: .2rem;
 }

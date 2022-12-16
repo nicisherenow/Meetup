@@ -1,7 +1,7 @@
 #home-splash {
   background-image: url("../../Images/home-background.png");
   width: 98vw;
-  height: 60vw;
+  height: 80vh;
   display: block;
   background-repeat: no-repeat;
   background-position: center;
@@ -10,7 +10,7 @@
 
 .splash-container {
   display: flex;
-  width: 80%;
+  width: 60%;
   height: auto;
   margin-left: auto;
   margin-right: auto;

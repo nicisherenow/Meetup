@@ -13,7 +13,10 @@ const SingleEvent = () => {
   const group = useSelector(state => state.groupState.allGroups[event.Group?.id])
   const user = useSelector(state => state.session.user)
 
-  
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  const usableStart = new Date(event.startDate).toLocaleTimeString('en-US', options)
+  const usableEnd = new Date(event.endDate).toLocaleTimeString('en-US', options)
+
   useEffect(()=> {
     dispatch(fetchEventById(eventId))
   }, [dispatch])
@@ -26,6 +29,8 @@ const SingleEvent = () => {
   if (!group) return null
   if (!event) return null
   return (
+    <div id='for-centering'>
+
     <div className='single-event-content-container'>
             <h1>{event?.name}</h1>
       <div className='top-bit'>
@@ -44,7 +49,7 @@ const SingleEvent = () => {
         </div>
         {event.Venue? (
           <div id='event-location-info'>
-            <p>{event.startDate} to {event.endDate}</p>
+            <p>{usableStart} to {usableEnd}</p>
             <p>{event.Venue?.name}</p>
             <p>{event.Venue?.address} • {event.Venue?.city}, {event.Venue?.state}</p>
           </div>
@@ -68,6 +73,7 @@ const SingleEvent = () => {
 
       </div>
         ) : (null)}
+    </div>
     </div>
   )
 }

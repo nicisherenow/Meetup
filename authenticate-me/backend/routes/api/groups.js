@@ -26,7 +26,8 @@ const validateGroup = [
     .withMessage('City is required'),
   check('state')
     .exists({ checkFalsy: true })
-    .withMessage("State is required"),
+    .isLength({ min: 2, max:2 })
+    .withMessage("A 2 character State is required"),
   handleValidationErrors
 ];
 
@@ -74,6 +75,17 @@ const validateEvent = [
   check('endDate')
     .exists({ checkFalsy: true })
     .withMessage('End date is less than start date'),
+  handleValidationErrors
+]
+
+const validatePic = [
+  check('preview')
+    .exists()
+    .withMessage('Preview must be a boolean'),
+  check('url')
+    .exists({ checkFalsy: true })
+    .isURL()
+    .withMessage('Picture needs to be a url'),
   handleValidationErrors
 ]
 
@@ -349,7 +361,7 @@ router.get('/:groupId', async (req, res) => {
 })
 
 router.post('/:groupId/images',
-  [restoreUser, requireAuth,],
+  [restoreUser, requireAuth, validatePic],
   async (req, res) => {
     let { user } = req;
     user = user.toJSON()

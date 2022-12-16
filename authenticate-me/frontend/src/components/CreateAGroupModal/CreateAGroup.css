@@ -9,7 +9,7 @@
   border: black;
   border-radius: 15px;
   margin-bottom: 15px;
-  overflow-y: visible;
+  overflow-y: scroll;
 }
 
 form {
@@ -49,6 +49,18 @@ form {
 label {
   font-weight: 600;
   margin-top: 20px;
+}
+
+select {
+  width: 361px;
+  height: 39px;
+  margin-top: 7px;
+  border-radius: 6px;
+  border: 1px lightgray solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
 }
 
 input {
