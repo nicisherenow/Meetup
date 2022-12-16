@@ -74,10 +74,11 @@ function EditAGroupModal() {
             required
           />
         </label>
-        <label htmlFor={type}>Choose a type
-          <select name="type" id="type-select" onChange={(e) => setType(e.target.value)} required>
-              <option value={type}>Online</option>
-              <option value={type}>In person</option>
+        <label htmlFor='type-select'>Choose a type
+          <select name={type} value={type} id="type-select" onChange={(e) => setType(e.target.value)} required>
+              <option disabled value=''>--Select type</option>
+              <option value='Online'>Online</option>
+              <option value='In person'>In person</option>
           </select>
         </label>
         <span className="radio-buttons">
