@@ -16,13 +16,14 @@ function CreateAnEventModal() {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
+  const [previewImage, setPreviewImage] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
-      return dispatch(createAnEvent(group, { name, type, capacity, price, description, startDate, endDate }))
+      return dispatch(createAnEvent(group, { name, type, capacity, price, description, startDate, endDate }, previewImage))
         .then((data) => history.push(`/events/${data.id}`))
         .then(closeModal)
         .catch(async (res) => {
@@ -75,6 +76,15 @@ function CreateAnEventModal() {
           />
         </label>
         <label>
+          Preview Image
+          <input
+          type='text'
+          value={previewImage}
+          onChange={(e) => setPreviewImage(e.target.value)}
+          required
+          />
+        </label>
+        <label>
           Start Date
           <input
             className='Date-style'
@@ -94,7 +104,7 @@ function CreateAnEventModal() {
             required
           />
         </label>
-        <label for={type}>Choose a type
+        <label htmlFor={type}>Choose a type
           <select name="type"
            id="type-select"
            onChange={(e) => setType(e.target.value)}

@@ -36,10 +36,18 @@ const validateEvent = [
   handleValidationErrors
 ]
 
+const validatePic = [
+  check('url')
+    .exists()
+    .isURL()
+    .withMessage("Preview Image must be URL"),
+  handleValidationErrors
+]
+
 
 
 router.post('/:eventId/images',
-  requireAuth,
+  [requireAuth, validatePic],
   async (req, res) => {
   const userId = req.user.id
   const { url, preview } = req.body

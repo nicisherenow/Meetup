@@ -73,7 +73,7 @@ function CreateAGroupModal() {
             required
           />
         </label>
-        <label for={type}>Choose a type
+        <label htmlFor={type}>Choose a type
           <select name="type" id="type-select" onChange={(e) => setType(e.target.value)} required>
               <option value={type}>Online</option>
               <option value={type}>In person</option>

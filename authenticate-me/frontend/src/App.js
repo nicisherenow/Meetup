@@ -10,6 +10,7 @@ import EventsPage from "./components/EventsPage";
 import SingleEvent from "./components/SingleEvent";
 import Footered from "./components/Footered";
 import AboutPage from "./components/AboutPage";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path={'/about'}>
             <AboutPage />
+          </Route>
+          <Route>
+            <PageNotFound />
           </Route>
         </Switch>
       )}

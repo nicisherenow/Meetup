@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
-import { fetchGroupById, deleteAGroup, fetchGroups } from "../../store/groups";
+import { fetchGroupById, deleteAGroup, clearGroup } from "../../store/groups";
 import CreateAnEventModal from "../CreateAnEventModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditAGroupModal from "../EditAGroupModal";
@@ -18,7 +18,8 @@ const SingleGroup = () => {
 
   useEffect(()=> {
     dispatch(fetchGroupById(groupId))
-  }, [dispatch])
+    .then(dispatch(clearGroup()))
+  }, [dispatch, groupId])
 
   const handleDeleteClick = (e) => {
     e.preventDefault()
@@ -29,6 +30,7 @@ const SingleGroup = () => {
   if(!group) return null
   return (
     <>
+    <div id="for-centering-group">
 
     <div className='single-group-container' id={`group-${group.id}-page`}>
       <div className="pic-container">
@@ -45,6 +47,10 @@ const SingleGroup = () => {
         <h3>What we're about</h3>
         <p>{group.about}</p>
         <p>This is an "{group.type}" group.</p>
+        <p>This is flavor text, it is whatever flavor it needs to be. I personally prefer gummies, however, it can be whatever
+          you want it to be in your imagination. The choice is yours. {group.name} is the name of the group, but it can be about
+          whatever you want it to be about in your heart.
+        </p>
       </div>
       {user?.id === group.Organizer?.id ? (
 
@@ -63,6 +69,7 @@ const SingleGroup = () => {
               /></span>
       </div>
               ) : (null)}
+              </div>
     </>
   )
 }

@@ -4,11 +4,17 @@
   justify-content: center;
 }
 
+#for-centering-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
 .pic-container {
-  width: 55%;
-  margin-left: 10%;
+  width: 60%;
   margin-right: 20px;
   border-radius: .4rem;
+  margin-left: 20%
 }
 
 #SingleGroupPic {
@@ -18,15 +24,16 @@
 }
 .info-container {
   width: 40%;
-  margin-right: 10%;
+  margin-right: 20%;
 }
 
 .about-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 10%;
-  height: 40vh;
+  margin-left: 20%;
+  margin-right: 20%;
+  height: 50vh;
 }
 
 .delete-edit {
