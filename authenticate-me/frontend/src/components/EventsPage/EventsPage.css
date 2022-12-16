@@ -1,0 +1,42 @@
+
+
+#event-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.events {
+  border-top: 1px lightgrey solid;
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.event-pics {
+  border-radius: .3rem;
+  width: 178px;
+  height: 100px;
+}
+
+#event-pic-container {
+  background-color: lightgrey;
+  border-radius: .3rem;
+  display: flex;
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+#event-details {
+  flex-wrap: wrap;
+  width: 400px;
+}

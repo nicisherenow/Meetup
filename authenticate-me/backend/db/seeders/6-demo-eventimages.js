@@ -12,17 +12,32 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'randompicture.png',
+        url: 'https://picsum.photos/178/100',
         preview: true,
       },
       {
         eventId: 2,
-        url: 'randompicture1.png',
-        preview: false,
+        url: 'https://picsum.photos/178/102',
+        preview: true,
       },
       {
         eventId: 3,
-        url: 'randompicture2.png',
+        url: 'https://picsum.photos/178/101',
+        preview: true,
+      },
+      {
+        eventId: 4,
+        url: 'https://picsum.photos/178/106',
+        preview: true,
+      },
+      {
+        eventId: 5,
+        url: 'https://picsum.photos/178/105',
+        preview: true,
+      },
+      {
+        eventId: 6,
+        url: 'https://picsum.photos/178/104',
         preview: true,
       },
     ], {});
@@ -32,7 +47,7 @@ module.exports = {
     options.tableName = 'EventImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      eventId: { [Op.in]: [1, 2, 3] }
+      eventId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };

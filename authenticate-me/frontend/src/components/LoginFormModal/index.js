@@ -4,6 +4,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import SignupFormModal from "../SignupFormModal";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -12,29 +13,32 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const history = useHistory()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    history.push('/groups')
     return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        }
+    .then(closeModal)
+    .catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors)
+      }
       );
-  };
-  const handleDemoSubmit = (e) => {
-    e.preventDefault();
-    setErrors([]);
-    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
-      .then(closeModal)
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        }
+    };
+    const handleDemoSubmit = (e) => {
+      e.preventDefault();
+      setErrors([]);
+      history.push('/groups')
+      return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+    .then(closeModal)
+    .catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors)
+      }
       );
   };
 

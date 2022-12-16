@@ -26,7 +26,8 @@ const validateGroup = [
     .withMessage('City is required'),
   check('state')
     .exists({ checkFalsy: true })
-    .withMessage("State is required"),
+    .isLength({ min: 2, max:2 })
+    .withMessage("A two character State is required"),
   handleValidationErrors
 ];
 
@@ -58,19 +59,33 @@ const validateEvent = [
     .withMessage('Type must be Online or In person'),
   check('capacity')
     .exists({ checkFalsy: true })
+    .isInt({ min: 1 })
     .withMessage('Capacity must be an integer'),
   check('price')
     .exists()
+    .isInt({ min: 0})
     .withMessage('Price is invalid'),
   check('description')
     .exists({ checkFalsy: true })
-    .withMessage('Description is required'),
+    .isLength({ min: 10, max: 255})
+    .withMessage('Description with a minimum of 10 characters is required'),
   check('startDate')
     .exists({ checkFalsy: true })
     .withMessage('Start date must be in the future'),
   check('endDate')
     .exists({ checkFalsy: true })
     .withMessage('End date is less than start date'),
+  handleValidationErrors
+]
+
+const validatePic = [
+  check('preview')
+    .exists()
+    .withMessage('Preview must be a boolean'),
+  check('url')
+    .exists({ checkFalsy: true })
+    .isURL()
+    .withMessage('Picture needs to be a url'),
   handleValidationErrors
 ]
 
@@ -99,7 +114,7 @@ router.get('/', async (req, res) => {
         const members = await Membership.count({
           where: {groupId: group.id}
         })
-        group.numMembers = members;
+        group.numMembers = members + 1;
       }
     }
     await numMembers()
@@ -192,7 +207,7 @@ router.post('/:groupId/events',
   if(isGroup.organizerId === user.id || member) {
     const event = await Event.create({
       groupId: +req.params.groupId,
-      venueId: venueId,
+      venueId: venueId || null,
       name: name,
       type: type,
       capacity: capacity,
@@ -323,7 +338,7 @@ router.get('/:groupId', async (req, res) => {
         }
       }
     })
-    group.numMembers = total
+    group.numMembers = total + 1
   }
   await members()
   res.json({
@@ -346,7 +361,7 @@ router.get('/:groupId', async (req, res) => {
 })
 
 router.post('/:groupId/images',
-  [restoreUser, requireAuth,],
+  [restoreUser, requireAuth, validatePic],
   async (req, res) => {
     let { user } = req;
     user = user.toJSON()

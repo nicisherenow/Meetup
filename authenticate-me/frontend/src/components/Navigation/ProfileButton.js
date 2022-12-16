@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory, NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
+  const history = useHistory()
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -35,6 +37,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push('/')
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -52,6 +55,10 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div id='loggedIn'>
+            <div id='group-event-navigation-on-profile-button'>
+              <NavLink className={'stop-underline'} to={'/groups'}>Groups</NavLink>
+              <NavLink className={'stop-underline'} to={'/events'}>Events</NavLink>
+            </div>
             <li className='userinfo'>{user.firstName} {user.lastName}</li>
             <li className='userinfo'>{user.email}</li>
             <li className='userinfo' id="logoutButton" onClick={logout}>
@@ -60,6 +67,10 @@ function ProfileButton({ user }) {
           </div>
         ) : (
           <div id='notLoggedIn'>
+              <div id='group-event-navigation-on-profile-button'>
+                <NavLink className={'stop-underline'} to={'/groups'}>Groups</NavLink>
+                <NavLink className={'stop-underline'} to={'/events'}>Events</NavLink>
+              </div>
             <span id='loginModalButton'>
               <OpenModalMenuItem
               itemText="Log In"

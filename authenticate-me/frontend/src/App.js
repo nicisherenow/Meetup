@@ -3,7 +3,13 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SplashPage from "./components/SplashPage/SplashPage";
+import SplashPage from "./components/SplashPage";
+import GroupsPage from "./components/GroupsPage";
+import SingleGroup from "./components/SingleGroup";
+import EventsPage from "./components/EventsPage";
+import SingleEvent from "./components/SingleEvent";
+import Footered from "./components/Footered";
+import AboutPage from "./components/AboutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,8 +26,24 @@ function App() {
           <Route exact path={'/'}>
             <SplashPage />
           </Route>
+          <Route exact path={'/groups'}>
+            <GroupsPage />
+          </Route>
+          <Route path={'/groups/:groupId'}>
+            <SingleGroup />
+          </Route>
+          <Route exact path={'/events'}>
+            <EventsPage />
+          </Route>
+          <Route path={`/events/:eventId`}>
+            <SingleEvent />
+          </Route>
+          <Route path={'/about'}>
+            <AboutPage />
+          </Route>
         </Switch>
       )}
+      <Footered />
     </>
   );
 }

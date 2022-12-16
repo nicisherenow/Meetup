@@ -565,7 +565,7 @@ router.get('/', async (req, res) => {
       })
     }
 
-    if(page > 10) page = 1;
+    if(page > 10) page = 10;
     if(size > 20) size = 20;
 
 

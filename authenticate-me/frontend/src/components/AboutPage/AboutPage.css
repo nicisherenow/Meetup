@@ -1,0 +1,20 @@
+#about-page-container {
+  height: 75vh;
+  width: 80vw;
+  display: flex;
+  margin: 0 auto;
+}
+
+#about-page-image-container {
+  width: 60%;
+  margin-right: 10px;
+}
+
+#me-image {
+  width: 100%;
+  border-radius: .5rem;
+}
+
+#brief-intro-container {
+  width: 40%;
+}

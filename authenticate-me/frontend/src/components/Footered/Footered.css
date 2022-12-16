@@ -1,0 +1,51 @@
+#footer-container {
+  padding-top: 30px;
+  padding-bottom: 40px;
+  border-top: 1px white solid;
+  display: flex;
+  width: 100vw;
+  position: relative;
+  background-color: black;
+  bottom: 0;
+  color: white;
+}
+
+#footer-border-top {
+  border-top: 1px white solid;
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: flex-start;
+}
+
+#footer-create-group:hover {
+  color: darkcyan;
+  cursor: pointer;
+}
+
+.footer-groups-events {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: white;
+}
+
+.footer-groups-events:hover {
+  cursor: pointer;
+  color: darkcyan;
+}
+
+#profile-div {
+  width: 33%;
+  margin-left: 10%;
+}
+
+#discover-div {
+  width: 33%;
+  margin-left: 10%;
+}
+
+#meet-sup-div {
+  margin-left: 10%;
+  width: 33%
+}

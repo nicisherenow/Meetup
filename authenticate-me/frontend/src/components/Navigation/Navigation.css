@@ -5,6 +5,41 @@
 #homeButton {
   font-size: 24px;
 }
+#login-signup {
+  display: flex;
+  flex-direction: row;
+  margin-right: 2rem;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+  color: gray;
+}
+
+#nav-login:hover {
+  color: darkcyan;
+}
+
+#nav-signup:hover {
+  color: darkcyan;
+}
+
+#login-signup:hover {
+  cursor: pointer;
+}
+
+#navigation-create-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 40%;
+  color: darkcyan;
+  font-weight: bold;
+  width: fit-content;
+}
+
+#navigation-create-group:hover {
+  cursor: pointer;
+}
 
 #expandDropDown, #collapseDropDown {
   color: gray;
@@ -13,14 +48,16 @@
 }
 
 #notLoggedIn {
+  z-index: 100;
   align-items: center;
   position: absolute;
   top: 80px;
   right: 10px;
-  border: 1px gray solid;
+  border: 1px lightgray solid;
   box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
   padding: 10px;
   border-radius: .2rem;
+  background-color: white;
 }
 
 #loginModalButton {
@@ -37,14 +74,25 @@
   color: darkcyan;
 }
 
+.stop-underline {
+  text-decoration: none;
+  color: black;
+}
+
+.stop-underline:hover {
+  color: darkcyan;
+}
+
 #loggedIn {
+  z-index: 100;
   align-items: center;
   justify-content: center;
   position: absolute;
+  background-color: white;
   top: 80px;
   right: 10px;
-  border: 1px gray solid;
-  box-shadow: 0 -4px 7px rgba(128, 128, 128, .3);
+  border: 1px lightgray solid;
+  box-shadow: 0 4px 7px rgba(128, 128, 128, .3);
   padding: 10px;
   border-radius: .2rem;
 }
@@ -78,9 +126,17 @@ li {
   cursor: pointer;
 }
 
+#group-event-navigation-on-profile-button {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  gap: 3px;
+  margin-bottom: 12px;
+  border-bottom: 1px lightgray solid;
+  padding-bottom: 12px;
+}
 
-
-ul {
+#nav-ul {
   display: flex;
   justify-content: space-between;
 }

@@ -36,6 +36,33 @@ module.exports = {
         city: 'Long Beach',
         state: 'CA',
       },
+      {
+        organizerId: 4,
+        name: 'Having Fun in the Sun',
+        about: 'We are all about getting together and having fun under the warm sun',
+        type: 'In person',
+        private: false,
+        city: 'Long Beach',
+        state: 'CA',
+      },
+      {
+        organizerId: 5,
+        name: 'Having Fun in the Sun1',
+        about: 'We are all about getting together and having fun under the warm sun',
+        type: 'In person',
+        private: true,
+        city: 'Long Beach',
+        state: 'CA',
+      },
+      {
+        organizerId: 6,
+        name: 'Having Fun in the Sun2',
+        about: 'We are all about getting together and having fun under the warm sun',
+        type: 'In person',
+        private: false,
+        city: 'Long Beach',
+        state: 'CA',
+      },
     ], {});
   },
 
@@ -43,7 +70,7 @@ module.exports = {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      organizerId: { [Op.in]: [1, 2, 3] }
+      organizerId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };

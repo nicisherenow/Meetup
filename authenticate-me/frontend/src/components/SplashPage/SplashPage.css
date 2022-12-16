@@ -1,19 +1,39 @@
 #home-splash {
-  background: url("../../Images/home-background.png") no-repeat center/cover;
+  background-image: url("../../Images/home-background.png");
+  width: 98vw;
+  height: 80vh;
   display: block;
-}
-#content-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 600px;
-  height: auto;
-  margin-left: 20%;
-  margin-right: 20%;
-  justify-content: center;
-  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
 }
 
+.splash-container {
+  display: flex;
+  width: 60%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#splash-content-container {
+  display: flex;
+  flex-direction: column;
+  width:50%;
+}
+
+#splash-picture-container {
+  width: 50%;
+}
 #group-image {
-  width: 300px;
-  height: 240px;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+}
+
+#where-to-start {
+  display: flex;
+  justify-content: center;
 }
