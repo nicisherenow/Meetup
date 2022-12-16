@@ -24,21 +24,21 @@ function LoginFormModal() {
     .catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        if (data && data.errors) setErrors(data.errors)
       }
       );
     };
     const handleDemoSubmit = (e) => {
-    e.preventDefault();
-    setErrors([]);
-    history.push('/groups')
-    return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+      e.preventDefault();
+      setErrors([]);
+      history.push('/groups')
+      return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
     .then(closeModal)
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        }
+    .catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors)
+      }
       );
   };
 

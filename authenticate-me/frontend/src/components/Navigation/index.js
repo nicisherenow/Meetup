@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import CreateAGroupModal from '../CreateAGroupModal';
 import './Navigation.css';
@@ -23,11 +25,29 @@ function Navigation({ isLoaded }){
               modalComponent={<CreateAGroupModal />}
               /></span>
               ) : ( null )}
-      {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
+
+        { isLoaded && sessionUser ? (
+            <li>
+              <ProfileButton user={sessionUser} />
+            </li>
+          )
+          :
+          (<div id='login-signup'>
+          <span id='nav-login'>
+          <OpenModalMenuItem
+          itemText="Log In"
+          modalComponent={<LoginFormModal />}
+          />
+
+          </span>
+          <span id='nav-signup'>
+          <OpenModalMenuItem
+          itemText="Sign Up"
+          modalComponent={<SignupFormModal />}
+          />
+          </span>
+          </div>
+          )}
 
     </ul>
   );

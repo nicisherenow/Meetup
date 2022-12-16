@@ -8,7 +8,7 @@ import GroupsPage from "./components/GroupsPage";
 import SingleGroup from "./components/SingleGroup";
 import EventsPage from "./components/EventsPage";
 import SingleEvent from "./components/SingleEvent";
-import Footer from "./components/Footer";
+import Footered from "./components/Footered";
 import AboutPage from "./components/AboutPage";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
           </Route>
         </Switch>
       )}
-      <Footer />
+      <Footered />
     </>
   );
 }

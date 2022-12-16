@@ -25,6 +25,21 @@ module.exports = {
         url: 'https://picsum.photos/178/101',
         preview: true,
       },
+      {
+        eventId: 4,
+        url: 'https://picsum.photos/178/106',
+        preview: true,
+      },
+      {
+        eventId: 5,
+        url: 'https://picsum.photos/178/105',
+        preview: true,
+      },
+      {
+        eventId: 6,
+        url: 'https://picsum.photos/178/104',
+        preview: true,
+      },
     ], {});
   },
 
@@ -32,7 +47,7 @@ module.exports = {
     options.tableName = 'EventImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      eventId: { [Op.in]: [1, 2, 3] }
+      eventId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };

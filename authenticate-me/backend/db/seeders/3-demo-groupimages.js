@@ -24,6 +24,21 @@ module.exports = {
         url: 'https://picsum.photos/170/84',
         preview: true,
       },
+      {
+        groupId: 4,
+        url: 'https://picsum.photos/170/85',
+        preview: true,
+      },
+      {
+        groupId: 5,
+        url: 'https://picsum.photos/170/86',
+        preview: true,
+      },
+      {
+        groupId: 6,
+        url: 'https://picsum.photos/170/87',
+        preview: true,
+      },
     ], {});
   },
 
@@ -31,7 +46,7 @@ module.exports = {
     options.tableName = 'GroupImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      groupId: { [Op.in]: [1, 2, 3] }
+      groupId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };

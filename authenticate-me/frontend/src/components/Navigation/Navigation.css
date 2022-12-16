@@ -5,6 +5,27 @@
 #homeButton {
   font-size: 24px;
 }
+#login-signup {
+  display: flex;
+  flex-direction: row;
+  margin-right: 2rem;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+  color: gray;
+}
+
+#nav-login:hover {
+  color: darkcyan;
+}
+
+#nav-signup:hover {
+  color: darkcyan;
+}
+
+#login-signup:hover {
+  cursor: pointer;
+}
 
 #navigation-create-group {
   display: flex;

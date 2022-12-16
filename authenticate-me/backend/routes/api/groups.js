@@ -27,7 +27,7 @@ const validateGroup = [
   check('state')
     .exists({ checkFalsy: true })
     .isLength({ min: 2, max:2 })
-    .withMessage("A 2 character State is required"),
+    .withMessage("A two character State is required"),
   handleValidationErrors
 ];
 
@@ -68,7 +68,7 @@ const validateEvent = [
   check('description')
     .exists({ checkFalsy: true })
     .isLength({ min: 10, max: 255})
-    .withMessage('Description is required'),
+    .withMessage('Description with a minimum of 10 characters is required'),
   check('startDate')
     .exists({ checkFalsy: true })
     .withMessage('Start date must be in the future'),
