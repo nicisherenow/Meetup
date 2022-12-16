@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { fetchGroups } from '../../store/groups'
+import { useEffect } from 'react'
+import { clearGroup, fetchGroups } from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
 import './GroupsPage.css'
 import { NavLink } from 'react-router-dom'
@@ -11,6 +11,7 @@ const GroupsPage = () => {
 
   useEffect(() => {
     dispatch(fetchGroups())
+    .then(dispatch(clearGroup()))
   }, [dispatch])
   if (!groups) return null
   return (
@@ -25,10 +26,10 @@ const GroupsPage = () => {
               <img src={group.previewImage === 'no preview image' ? 'https://picsum.photos/178/100' : group.previewImage } alt='groupTime' className='group-pics'/>
             </div>
             <div className='group-content-container'>
-              <h2 className='area2'>{group.name}</h2>
-              <h4 className='area3'>{group.city}, {group.state}</h4>
-              <p className='area4'>{group.about}</p>
-              <p className='area5'>{group.numMembers} {group.numMembers > 1 || group.numMembers === 0 ? "members" : 'member'} • {group.private === false ? "Public" : "Private"}</p>
+              <h2 style={{color: 'black', marginTop: 15, marginBottom: 5}}>{group.name}</h2>
+              <h4 style={{color: "#877457", marginTop: 5}}>{group.city}, {group.state}</h4>
+              <p style={{color: '#757575'}}>{group.about}</p>
+              <p style={{color: '#757575'}}>{group.numMembers} {group.numMembers > 1 || group.numMembers === 0 ? "members" : 'member'} • {group.private === false ? "Public" : "Private"}</p>
             </div>
           </NavLink>
       ))}

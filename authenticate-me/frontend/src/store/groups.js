@@ -5,6 +5,7 @@ const LOAD_GROUP = 'group/loadGroup';
 const CREATE_GROUP = 'group/createGroup';
 const DELETE_GROUP = 'group/deleteGroup';
 const EDIT_GROUP = 'group/editGroup'
+const CLEAR_GROUP = 'group/clearGroup'
 
 export const loadGroups = (groups) => {
   return {
@@ -39,6 +40,12 @@ export const editGroup = (group) => {
   return {
     type: EDIT_GROUP,
     group
+  }
+}
+
+export const clearGroup = () => {
+  return {
+    type: CLEAR_GROUP,
   }
 }
 
@@ -126,6 +133,9 @@ const groupsReducer = (state = initialState, action) => {
     case EDIT_GROUP:
       newState = { ...state }
       newState.allGroups[action.group.id] = action.group
+      return newState
+    case CLEAR_GROUP:
+      newState = { ...initialState }
       return newState
     default:
       return state

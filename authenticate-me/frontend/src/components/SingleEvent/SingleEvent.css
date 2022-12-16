@@ -1,7 +1,6 @@
 .single-event-content-container {
   display: flex;
   flex-direction: column;
-  height: 85vh;
 }
 #like-an-onion {
   display: flex;
@@ -9,6 +8,8 @@
   background-color: lightgray;
   padding: 5px;
   align-items: center;
+  text-decoration: none;
+  color: black;
 }
 
 #for-centering {
@@ -53,6 +54,7 @@
 
 .top-bit {
   display: flex;
+  width: 100%;
 }
 
 #event-group-info {

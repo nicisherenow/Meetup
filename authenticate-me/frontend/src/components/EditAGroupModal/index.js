@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { editAGroup, fetchGroupById } from "../../store/groups";
@@ -9,9 +8,8 @@ function EditAGroupModal() {
 
   const group = useSelector(state => state.groupState.singleGroup)
 
-  const history = useHistory();
   const dispatch = useDispatch();
-  const [id, setId] = useState(group.id)
+  const [id,] = useState(group.id)
   const [name, setName] = useState(group.name);
   const [about, setAbout] = useState(group.about);
   const [type, setType] = useState(group.type);
@@ -76,7 +74,7 @@ function EditAGroupModal() {
             required
           />
         </label>
-        <label for={type}>Choose a type
+        <label htmlFor={type}>Choose a type
           <select name="type" id="type-select" onChange={(e) => setType(e.target.value)} required>
               <option value={type}>Online</option>
               <option value={type}>In person</option>
