@@ -20,6 +20,7 @@ function CreateAnEventModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
