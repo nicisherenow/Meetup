@@ -24,7 +24,8 @@ const SingleGroup = () => {
   const handleDeleteClick = (e) => {
     e.preventDefault()
     dispatch(deleteAGroup(group))
-    history.push('/groups')
+    .then(dispatch(clearGroup()))
+    .then(() => history.push('/groups'))
   }
 
   if(!group) return null
