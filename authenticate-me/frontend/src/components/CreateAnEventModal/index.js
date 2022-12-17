@@ -35,8 +35,8 @@ function CreateAnEventModal() {
   return (
     <div id='createAnEventForm'>
 
-      <h1 id='groupH1'>Create an Event</h1>
       <form onSubmit={handleSubmit}>
+      <h1 id='groupH1'>Create an Event</h1>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>

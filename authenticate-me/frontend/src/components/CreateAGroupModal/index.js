@@ -73,13 +73,6 @@ function CreateAGroupModal() {
             required
           />
         </label>
-        <label htmlFor='type-select'>Choose a type
-          <select name={type} value={type} id="type-select" onChange={(e) => setType(e.target.value)} required>
-              <option disabled value=''>--Select type</option>
-              <option value='Online'>Online</option>
-              <option value='In person'>In person</option>
-          </select>
-        </label>
         <label>
           Preview Image
           <input
@@ -88,6 +81,13 @@ function CreateAGroupModal() {
           onChange={(e) => setPreviewImage(e.target.value)}
           required
           />
+        </label>
+        <label htmlFor='type-select'>Choose a type
+          <select name={type} value={type} id="type-select" onChange={(e) => setType(e.target.value)} required>
+              <option disabled value=''>--Select type</option>
+              <option value='Online'>Online</option>
+              <option value='In person'>In person</option>
+          </select>
         </label>
         <label htmlFor='private-select'>Privacy
           <select name={isPrivate} value={isPrivate} id="private-select" onChange={(e) => setIsPrivate(e.target.value)} required>

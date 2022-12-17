@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import SignupFormModal from "../SignupFormModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user)
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const history = useHistory()
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    history.push('/groups')
     return dispatch(sessionActions.login({ credential, password }))
     .then(closeModal)
+    .then(() => history.push('/groups'))
     .catch(
       async (res) => {
         const data = await res.json();

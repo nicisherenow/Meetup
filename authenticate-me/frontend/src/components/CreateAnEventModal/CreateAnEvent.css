@@ -9,12 +9,6 @@
   border: black;
   border-radius: 15px;
   margin-bottom: 15px;
-  overflow-y: scroll;
-}
-
-#createContentContainer {
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 form {
@@ -37,7 +31,6 @@ form {
   color: white;
   cursor: pointer;
   margin-top: 20px;
-  overflow-y: auto;
 }
 
 

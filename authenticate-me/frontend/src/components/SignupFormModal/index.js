@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -8,6 +9,7 @@ import './SignupForm.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,6 +24,7 @@ function SignupFormModal() {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, firstName, lastName, password }))
         .then(closeModal)
+        .then(() => history.push('/groups'))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
