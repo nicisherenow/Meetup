@@ -36,5 +36,5 @@ You can Sign up, login, or even take a gander at the currently available groups.
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/110574773/208219976-47f580c7-f693-4b3a-89d9-729e30905a33.png">
 
 ## Contact me:
-- Phone (209)765-7189
-- email talbotnic26@gmail.com
+- Phone: (209)765-7189
+- Email: talbotnic26@gmail.com
