@@ -21,8 +21,8 @@ Thanks for taking the time to check this all out.
 [Postgres](https://www.postgresql.org/)
 
 ## Wiki Links:
--
--
+- [API endpoints](https://github.com/nicisherenow/Meetup/wiki/API-endpoints)
+- [Redux Store Shape](https://github.com/nicisherenow/Meetup/wiki/Redux-Store-Shape)
 -
 -
 
