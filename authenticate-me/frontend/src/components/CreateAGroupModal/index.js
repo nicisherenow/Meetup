@@ -73,12 +73,6 @@ function CreateAGroupModal() {
             required
           />
         </label>
-        <label htmlFor={type}>Choose a type
-          <select name="type" id="type-select" onChange={(e) => setType(e.target.value)} required>
-              <option value={type}>Online</option>
-              <option value={type}>In person</option>
-          </select>
-        </label>
         <label>
           Preview Image
           <input
@@ -88,28 +82,20 @@ function CreateAGroupModal() {
           required
           />
         </label>
-        <span className="radio-buttons">
-        <label>
-          Private
-          <input
-            type="radio"
-            value='true'
-            onChange={(e) => setIsPrivate(e.target.value)}
-            required
-            checked={isPrivate === "true" ? true : false}
-          />
+        <label htmlFor='type-select'>Choose a type
+          <select name={type} value={type} id="type-select" onChange={(e) => setType(e.target.value)} required>
+              <option disabled value=''>--Select type</option>
+              <option value='Online'>Online</option>
+              <option value='In person'>In person</option>
+          </select>
         </label>
-        <label>
-          Public
-          <input
-            type="radio"
-            value='false'
-            onChange={(e) => setIsPrivate(e.target.value)}
-            required
-            checked={isPrivate === "false" ? true : false}
-          />
+        <label htmlFor='private-select'>Privacy
+          <select name={isPrivate} value={isPrivate} id="private-select" onChange={(e) => setIsPrivate(e.target.value)} required>
+              <option disabled value=''>--Select privacy</option>
+              <option value={false}>Public</option>
+              <option value={true}>Private</option>
+          </select>
         </label>
-            </span>
         <button id='createGroup' type="submit">Create Group</button>
       </form>
     </div>

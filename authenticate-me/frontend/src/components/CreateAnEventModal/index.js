@@ -34,8 +34,9 @@ function CreateAnEventModal() {
 
   return (
     <div id='createAnEventForm'>
-      <h1 id='groupH1'>Create an Event</h1>
+
       <form onSubmit={handleSubmit}>
+      <h1 id='groupH1'>Create an Event</h1>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -73,7 +74,7 @@ function CreateAnEventModal() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
-          />
+            />
         </label>
         <label>
           Preview Image
@@ -92,7 +93,7 @@ function CreateAnEventModal() {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             required
-          />
+            />
         </label>
         <label>
           End Date
@@ -104,13 +105,11 @@ function CreateAnEventModal() {
             required
           />
         </label>
-        <label htmlFor={type}>Choose a type
-          <select name="type"
-           id="type-select"
-           onChange={(e) => setType(e.target.value)}
-           required>
-              <option value={type}>Online</option>
-              <option value={type}>In person</option>
+        <label htmlFor='type-select'>Choose a type
+          <select name={type} value={type} id="type-select" onChange={(e) => setType(e.target.value)} required>
+              <option disabled value=''>--Select type</option>
+              <option value='Online'>Online</option>
+              <option value='In person'>In person</option>
           </select>
         </label>
         <button id='createEvent' type="submit">Create Event</button>

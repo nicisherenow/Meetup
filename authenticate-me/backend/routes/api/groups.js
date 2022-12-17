@@ -11,7 +11,7 @@ const router = express.Router();
 const validateGroup = [
   check('name')
     .isLength({ min: 1, max: 60 })
-    .withMessage('Name must be 60 characters or less'),
+    .withMessage('Name must be between 1 and 60 characters'),
   check('about')
     .isLength({ min: 50 })
     .withMessage('About must be 50 characters or more'),
@@ -53,6 +53,7 @@ const validateVenue = [
 const validateEvent = [
   check('name')
     .exists({ checkFalsy: true })
+    .isLength({ min: 5})
     .withMessage('Name must be at least 5 characters'),
   check('type')
     .exists({ checkFalsy: true })

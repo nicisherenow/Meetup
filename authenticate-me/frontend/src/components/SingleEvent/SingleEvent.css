@@ -1,6 +1,8 @@
 .single-event-content-container {
   display: flex;
   flex-direction: column;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 #like-an-onion {
   display: flex;
@@ -12,10 +14,7 @@
   color: black;
 }
 
-#for-centering {
-  display: flex;
-  justify-content: center;
-}
+
 
 #grouptab {
   width: 60px;
@@ -47,9 +46,15 @@
   background-color: lightgray;
 }
 
+#delete-event-button {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
 #delete-event-button:hover {
   cursor: pointer;
   color: darkcyan;
+
 }
 
 .top-bit {
