@@ -43,6 +43,11 @@ label {
   margin-top: 20px;
 }
 
+#loginH1 {
+  margin-top: 10px;
+  margin-bottom: 7px;
+}
+
 input {
   width: 355px;
   height: 35px;

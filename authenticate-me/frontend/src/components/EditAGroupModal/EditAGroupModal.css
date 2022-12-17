@@ -33,13 +33,7 @@ form {
   margin-top: 20px;
 }
 
-.radio-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-}
+
 
 #editGroup:hover {
   background-color: rgb(251, 117, 94);

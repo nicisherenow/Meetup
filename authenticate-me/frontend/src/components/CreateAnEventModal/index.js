@@ -14,8 +14,8 @@ function CreateAnEventModal() {
   const [capacity, setCapacity] = useState(0);
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
   const [previewImage, setPreviewImage] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();

@@ -17,7 +17,10 @@ form {
   justify-content: center;
   align-items: center;
 }
-
+#groupH1 {
+  margin-top: 10px;
+  margin-bottom: 7px;
+}
 #createGroup {
   display: flex;
   align-items: center;
@@ -33,12 +36,12 @@ form {
   margin-top: 20px;
 }
 
-.radio-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
+#type-select:hover {
+  border-color: darkcyan;
+}
+
+#private-select:hover {
+  border-color: darkcyan;
 }
 
 #createGroup:hover {

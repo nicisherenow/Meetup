@@ -58,6 +58,10 @@ input:hover {
   border: 1px darkcyan solid;
 }
 
+#signupH1 {
+  margin-top: 10px;
+  margin-bottom: 7px
+}
 #loginModal {
   display: flex;
   align-items: center;
