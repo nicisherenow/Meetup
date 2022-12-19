@@ -5,10 +5,12 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  height: fit-content;
   width: 500px;
   border: black;
   border-radius: 15px;
-  margin-bottom: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 form {
@@ -31,6 +33,7 @@ form {
   color: white;
   cursor: pointer;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #signupbutton:hover {
@@ -59,7 +62,7 @@ input:hover {
 }
 
 #signupH1 {
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 7px
 }
 #loginModal {

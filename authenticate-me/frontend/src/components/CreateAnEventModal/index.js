@@ -20,7 +20,7 @@ function CreateAnEventModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
       setErrors([]);
@@ -34,9 +34,8 @@ function CreateAnEventModal() {
   };
 
   return (
-    <div id='createAnEventForm'>
-
-      <form onSubmit={handleSubmit}>
+        <div id='createAnEventForm'>
+    <form onSubmit={handleSubmit}>
       <h1 id='groupH1'>Create an Event</h1>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
