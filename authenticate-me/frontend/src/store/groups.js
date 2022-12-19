@@ -89,7 +89,7 @@ export const createAGroup = (payload, imagePayload) => async dispatch => {
   })
 
   const previewImage = await imageResponse.json()
-    if (response.ok) {
+    if (response.ok && imageResponse.ok) {
       dispatch(createGroup(group, previewImage))
       return group
     } else {

@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isDate: true,
         isAfterToday(value) {
-          if(Date.parse(value) > Date.now()){
+          if(new Date(value) > new Date()){
             return true
           } else {
             throw new ValidationError ("Start date must be in the future")
@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isDate: true,
         isAfterStart(value) {
-          if (Date.parse(value) > Date.parse(this.startDate)) {
+          if (new Date(value) > new Date(this.startDate)) {
             return true
           } else {
             throw new ValidationError ("End date is less than start date")

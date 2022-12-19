@@ -74,7 +74,7 @@ function CreateAGroupModal() {
           />
         </label>
         <label>
-          Preview Image
+          Preview Image URL
           <input
           type='text'
           value={previewImage}

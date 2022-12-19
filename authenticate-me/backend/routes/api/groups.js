@@ -86,7 +86,7 @@ const validatePic = [
   check('url')
     .exists({ checkFalsy: true })
     .isURL()
-    .withMessage('Picture needs to be a url'),
+    .withMessage('Preview Image needs to be a URL'),
   handleValidationErrors
 ]
 
