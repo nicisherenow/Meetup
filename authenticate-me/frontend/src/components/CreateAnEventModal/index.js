@@ -77,7 +77,7 @@ function CreateAnEventModal() {
             />
         </label>
         <label>
-          Preview Image
+          Preview Image URL
           <input
           type='text'
           value={previewImage}

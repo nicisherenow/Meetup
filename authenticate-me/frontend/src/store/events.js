@@ -79,7 +79,7 @@ export const createAnEvent = (group, payload, imagePayload) => async dispatch =>
     body: JSON.stringify({url: imagePayload, eventId: event.id, preview: true})
   })
   const previewImage = await imageResponse.json()
-  if (response.ok) {
+  if (response.ok && imageResponse.ok) {
     dispatch(createEvent(event, previewImage))
     return event
   }
