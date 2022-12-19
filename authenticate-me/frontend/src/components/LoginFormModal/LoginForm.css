@@ -19,8 +19,8 @@ form {
 }
 
 #loginButton, #demoLogin {
-  width: 360px;
-  height: 40px;
+  width: 361px;
+  height: 39px;
   border-radius: 7px;
   border: none;
   background-color: tomato;
@@ -67,7 +67,7 @@ input:active {
 #issaDemo {
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px grey solid;
+  border-top: 1px lightgrey solid;
 }
 
 #signupModal {

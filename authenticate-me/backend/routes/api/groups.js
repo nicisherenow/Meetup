@@ -61,14 +61,14 @@ const validateEvent = [
   check('capacity')
     .exists({ checkFalsy: true })
     .isInt({ min: 1 })
-    .withMessage('Capacity must be an integer'),
+    .withMessage('Capacity must be 1 or more'),
   check('price')
     .exists()
     .isInt({ min: 0})
-    .withMessage('Price is invalid'),
+    .withMessage('Price must be 0 or more'),
   check('description')
     .exists({ checkFalsy: true })
-    .isLength({ min: 10, max: 255})
+    .isLength({ min: 10 })
     .withMessage('Description with a minimum of 10 characters is required'),
   check('startDate')
     .exists({ checkFalsy: true })

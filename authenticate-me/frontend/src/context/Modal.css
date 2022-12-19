@@ -8,7 +8,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
 }
 
 #modal-background {
@@ -26,15 +25,16 @@
   right: 0;
   left: 0;
   bottom: 0;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: scroll;
 }
 
 #modal-content {
   border-radius: .5rem;
+  height: 100%;
   position: absolute;
+  height: auto;
   background-color:white;
-  overflow-y: auto;
 }
