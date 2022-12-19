@@ -14,11 +14,12 @@ function CreateAnEventModal() {
   const [capacity, setCapacity] = useState(0);
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
   const [previewImage, setPreviewImage] = useState("")
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,9 +34,8 @@ function CreateAnEventModal() {
   };
 
   return (
-    <div id='createAnEventForm'>
-
-      <form onSubmit={handleSubmit}>
+        <div id='createAnEventForm'>
+    <form onSubmit={handleSubmit}>
       <h1 id='groupH1'>Create an Event</h1>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}

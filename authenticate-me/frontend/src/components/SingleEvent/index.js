@@ -29,7 +29,8 @@ const SingleEvent = () => {
   const handleDeleteClick = (e) => {
     e.preventDefault()
     dispatch(deleteAnEvent(event))
-    history.push('/events')
+    .then(dispatch(clearEvent()))
+    .then(() => history.push('/events'))
   }
   if (!event) return null
   if (!group) return null

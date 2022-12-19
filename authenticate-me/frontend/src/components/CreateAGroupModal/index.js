@@ -32,8 +32,8 @@ function CreateAGroupModal() {
 
   return (
     <div id='createAGroupForm'>
-      <h1 id='groupH1'>Create a Group</h1>
       <form onSubmit={handleSubmit}>
+      <h1 id='groupH1'>Create a Group</h1>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>

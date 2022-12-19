@@ -35,6 +35,7 @@ function SignupFormModal() {
 
   return (
     <div id='signupForm'>
+      <form onSubmit={handleSubmit}>
       <h1 id='signupH1'>Sign Up</h1>
       <p>Already a member?
         <span id='loginModal'>
@@ -42,7 +43,6 @@ function SignupFormModal() {
               itemText="Log In"
               modalComponent={<LoginFormModal />}
             /></span></p>
-      <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>

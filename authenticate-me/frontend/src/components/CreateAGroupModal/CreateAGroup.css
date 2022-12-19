@@ -6,9 +6,9 @@
   margin-left: auto;
   margin-right: auto;
   width: 500px;
+  height: fit-content;
   border: black;
   border-radius: 15px;
-  margin-bottom: 15px;
 }
 
 form {
@@ -17,13 +17,16 @@ form {
   justify-content: center;
   align-items: center;
 }
-
+#groupH1 {
+  margin-top: 15px;
+  margin-bottom: 7px;
+}
 #createGroup {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 360px;
-  height: 40px;
+  width: 361px;
+  height: 39px;
   border-radius: 7px;
   border: none;
   background-color: tomato;
@@ -31,14 +34,15 @@ form {
   color: white;
   cursor: pointer;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.radio-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
+#type-select:hover {
+  border-color: darkcyan;
+}
+
+#private-select:hover {
+  border-color: darkcyan;
 }
 
 #createGroup:hover {

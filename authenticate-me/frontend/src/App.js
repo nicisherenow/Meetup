@@ -39,7 +39,7 @@ function App() {
           <Route path={`/events/:eventId`}>
             <SingleEvent />
           </Route>
-          <Route path={'/about'}>
+          <Route exact path={'/about'}>
             <AboutPage />
           </Route>
           <Route>

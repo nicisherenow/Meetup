@@ -5,10 +5,10 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  height: fit-content;
   width: 500px;
   border: black;
   border-radius: 15px;
-  margin-bottom: 15px;
 }
 
 form {
@@ -19,8 +19,8 @@ form {
 }
 
 #loginButton, #demoLogin {
-  width: 360px;
-  height: 40px;
+  width: 361px;
+  height: 39px;
   border-radius: 7px;
   border: none;
   background-color: tomato;
@@ -30,6 +30,9 @@ form {
   margin-top: 20px;
 }
 
+#demoLogin {
+  margin-bottom: 20px;
+}
 #loginButton {
   margin-bottom: 60;
 }
@@ -41,6 +44,11 @@ form {
 label {
   font-weight: 600;
   margin-top: 20px;
+}
+
+#loginH1 {
+  margin-top: 15px;
+  margin-bottom: 7px;
 }
 
 input {
@@ -62,7 +70,7 @@ input:active {
 #issaDemo {
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px grey solid;
+  border-top: 1px lightgrey solid;
 }
 
 #signupModal {

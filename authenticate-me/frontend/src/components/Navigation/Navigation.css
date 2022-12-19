@@ -15,10 +15,6 @@
   color: gray;
 }
 
-#modal {
-  overflow-y: scroll;
-}
-
 #nav-login:hover {
   color: darkcyan;
 }
